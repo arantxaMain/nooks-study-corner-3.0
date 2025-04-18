@@ -1,0 +1,15 @@
+.progress-root {
+  height: 0.5rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: rgba(128, 150, 113, 0.2);
+}
+
+.progress-indicator {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  background-color: #809671;
+  transition: all 0.2s;
+}

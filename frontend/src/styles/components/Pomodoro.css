@@ -1,0 +1,36 @@
+.pomodoro-reset {
+  cursor: pointer;
+}
+
+.pomodoro-reset-icon {
+  font-size: 2.25rem;
+  color: #809671;
+}
+
+.pomodoro-time {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+}
+
+.pomodoro-time-text {
+  margin: 0 auto;
+  font-family: 'Sour Gummy', sans-serif;
+  font-size: 6rem;
+  color: #809671;
+}
+
+.pomodoro-controls button {
+  cursor: pointer;
+}
+
+.pomodoro-control-icon {
+  font-size: 5rem;
+  color: #809671;
+}
+
+.pomodoro-status {
+  text-align: center;
+  font-size: 1.125rem;
+  color: #6B7280;
+}
