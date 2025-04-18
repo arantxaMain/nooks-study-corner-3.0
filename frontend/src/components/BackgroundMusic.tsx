@@ -38,7 +38,7 @@ export default function BackgroundMusic() {
       </audio>
       
       <button onClick={toggleMute} className="mute-button">
-        <span className="material-symbols">
+        <span className="material-symbols-rounded">
           {isMuted ? 'volume_off' : 'volume_up'}
         </span>
       </button>

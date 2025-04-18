@@ -8,7 +8,7 @@ const Pomodoro: React.FC = () => {
   return (
     <div>
       <button className='pomodoro-reset' onClick={resetTimer}>
-        <span className="material-symbols pomodoro-reset-icon">refresh</span>
+        <span className="material-symbols-rounded pomodoro-reset-icon">refresh</span>
       </button>
       <div className="pomodoro-time">
         <h2 className="pomodoro-time-text">{formatTime(timeLeft)}</h2>
@@ -16,15 +16,15 @@ const Pomodoro: React.FC = () => {
       <div className="pomodoro-controls">
         {isPaused ? (
           <button onClick={startTimer}>
-            <span className="material-symbols pomodoro-control-icon">play_arrow</span>
+            <span className="material-symbols-rounded pomodoro-control-icon">play_arrow</span>
           </button>
         ) : isActive ? (
           <button onClick={pauseTimer}>
-            <span className="material-symbols pomodoro-control-icon">pause</span>
+            <span className="material-symbols-rounded pomodoro-control-icon">pause</span>
           </button>
         ) : (
           <button onClick={startTimer}>
-            <span className="material-symbols pomodoro-control-icon">play_arrow</span>
+            <span className="material-symbols-rounded pomodoro-control-icon">play_arrow</span>
           </button>
         )}
       </div>
