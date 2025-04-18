@@ -13,6 +13,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.material-symbols-rounded {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' -25,
+    'opsz' 48;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -65,4 +82,14 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: center;
 }
