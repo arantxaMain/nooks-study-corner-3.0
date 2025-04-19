@@ -8,9 +8,7 @@ createRoot(document.getElementById('root')!).render(
     <header className="header">
       <h1>Nook's Study Corner</h1>
     </header>
-    <div className='main'>
       <App />
-    </div>
     <footer className="footer">
       <div className="footer-text">
         <p>
