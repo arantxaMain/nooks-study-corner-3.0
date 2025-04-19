@@ -12,9 +12,9 @@ createRoot(document.getElementById('root')!).render(
       <h1>Nook's Study Corner</h1>
     </header>
     <div className='main'>
+      <TimerProvider>
       <App />
       <BackgroundMusic />
-      <TimerProvider>
         <TimerProgress />
       </TimerProvider>
     </div>

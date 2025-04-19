@@ -51,6 +51,8 @@
   min-height: calc(100vh - 12.6em);
   border: 1px solid black;
   width: 100vw;
+  margin: 0 auto;
+  text-align: center;
 }
 
 body {

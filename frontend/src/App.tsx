@@ -1,4 +1,3 @@
-import './styles/App.css'
 import Pomodoro from './components/Pomodoro'
 import { TimerProvider } from './contexts/TimerProvider';
 
