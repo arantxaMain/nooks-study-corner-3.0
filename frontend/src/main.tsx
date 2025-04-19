@@ -1,9 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/index.css'
-import BackgroundMusic from './components/BackgroundMusic.tsx'
-import TimerProgress from './components/TimerProgress'
-import { TimerProvider } from './contexts/TimerProvider'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -12,11 +9,7 @@ createRoot(document.getElementById('root')!).render(
       <h1>Nook's Study Corner</h1>
     </header>
     <div className='main'>
-      <TimerProvider>
-        <App />
-        <BackgroundMusic />
-        <TimerProgress />
-      </TimerProvider>
+      <App />
     </div>
     <footer className="footer">
       <div className="footer-text">

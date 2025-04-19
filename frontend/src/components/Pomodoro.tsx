@@ -6,7 +6,7 @@ const Pomodoro: React.FC = () => {
   const { timeLeft, isActive, isPaused, startTimer, pauseTimer, resetTimer, formatTime, isWorkTime } = useTimer();
 
   return (
-    <div>
+    <div className='pomodoro-container'>
       <button className='pomodoro-reset' onClick={resetTimer}>
         <span className="material-symbols-rounded pomodoro-reset-icon">refresh</span>
       </button>
