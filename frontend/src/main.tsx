@@ -13,8 +13,8 @@ createRoot(document.getElementById('root')!).render(
     </header>
     <div className='main'>
       <TimerProvider>
-      <App />
-      <BackgroundMusic />
+        <App />
+        <BackgroundMusic />
         <TimerProgress />
       </TimerProvider>
     </div>
