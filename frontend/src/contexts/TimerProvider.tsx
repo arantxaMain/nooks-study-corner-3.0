@@ -18,8 +18,8 @@ export const TimerContext = createContext<TimerContextType | undefined>(undefine
 
 export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?: number; breakDuration?: number }> = ({
   children,
-  workDuration = 10,
-  breakDuration = 5,
+  workDuration = 25*60,
+  breakDuration = 5*60,
 }) => {
   const [timeLeft, setTimeLeft] = useState(workDuration);
   const [isActive, setIsActive] = useState(false);
@@ -38,7 +38,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?:
       }, 1000);
     } else if (isActive && timeLeft === 0) {
       if (isWorkTime) {
-        alert('¡Tiempo de descanso!');
+        alert('Hora de procrastinar legalmente');
       } else {
         alert('¡De vuelta al trabajo!');
       }

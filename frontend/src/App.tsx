@@ -2,9 +2,7 @@ import Pomodoro from './components/Pomodoro'
 import BackgroundMusic from './components/BackgroundMusic'
 import TimerProgress from './components/TimerProgress'
 import { TimerProvider } from './contexts/TimerProvider'
-import '../src/styles/App.css';
-import '../src/styles/index.css';
-
+import '../src/styles/components/App.css';
 
 function App() {
   return (

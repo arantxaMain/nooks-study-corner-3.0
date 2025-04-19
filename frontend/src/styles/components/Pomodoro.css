@@ -1,3 +1,7 @@
+.pomodoro-container {
+  margin-top: 8em;
+}
+
 .pomodoro-reset {
   cursor: pointer;
 }
@@ -32,5 +36,39 @@
 .pomodoro-status {
   text-align: center;
   font-size: 1.125rem;
-  color: #6B7280;
+  color: #747474;
+  margin-top: 1em;
+}
+
+.pomodoro-status p {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.fade-in-delayed {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+.fade-out-delayed {
+  opacity: 1;
+  animation: fadeOut 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

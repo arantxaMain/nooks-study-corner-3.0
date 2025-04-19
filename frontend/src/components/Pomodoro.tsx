@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import '../styles/components/Pomodoro.css';
 
 const Pomodoro: React.FC = () => {
   const { timeLeft, isActive, isPaused, startTimer, pauseTimer, resetTimer, formatTime, isWorkTime } = useTimer();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [endTime, setEndTime] = useState<Date | null>(null);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (isActive && !isPaused) {
+      const now = new Date();
+      const end = new Date(now.getTime() + timeLeft * 1000);
+      setEndTime(end);
+    }
+  }, [isActive, isPaused]);
 
   return (
     <div className='pomodoro-container'>
@@ -28,9 +45,32 @@ const Pomodoro: React.FC = () => {
           </button>
         )}
       </div>
-      <p className="pomodoro-status">
-        {isWorkTime ? 'Tiempo de trabajo' : 'Tiempo de descanso'}
-      </p>
+      <div className="pomodoro-status">
+        {isWorkTime ? 
+          (isActive ? 
+            <>
+              <p>Son las {currentTime.getHours()}:{String(currentTime.getMinutes()).padStart(2, '0')}</p>
+              <p className="fade-in-delayed">Terminarás la sesión a las {endTime?.getHours()}:{String(endTime?.getMinutes() || 0).padStart(2, '0')}</p>
+            </>
+            :
+            <>
+            <p>Son las {currentTime.getHours()}:{String(currentTime.getMinutes()).padStart(2, '0')}</p>
+            <p className="fade-out-delayed">Terminarás la sesión a las {endTime?.getHours()}:{String(endTime?.getMinutes() || 0).padStart(2, '0')}</p>
+            </>
+            
+          )
+          : (isActive ?
+              <>
+                <p>Son las {currentTime.getHours()}:{String(currentTime.getMinutes()).padStart(2, '0')}</p>
+                <p className="fade-in-delayed">Volverás al trabajo a las {endTime?.getHours()}:{String(endTime?.getMinutes() || 0).padStart(2, '0')}</p>
+              </>
+              :
+              <>
+              <p>Son las {currentTime.getHours()}:{String(currentTime.getMinutes()).padStart(2, '0')}</p>
+              <p className="fade-out-delayed">Volverás al trabajo a las {endTime?.getHours()}:{String(endTime?.getMinutes() || 0).padStart(2, '0')}</p>
+              </>
+            )}
+      </div>
     </div>
   );
 };

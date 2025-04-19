@@ -1,4 +1,9 @@
 .progress-root {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: 6.2em;
   height: 0.5rem;
   width: 100%;
   overflow: hidden;

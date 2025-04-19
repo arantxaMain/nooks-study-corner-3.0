@@ -3,6 +3,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
+  position: absolute;
+  bottom: 6.5em;
 }
 
 .mute-button {
