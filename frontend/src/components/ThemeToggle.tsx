@@ -5,7 +5,7 @@ export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <button onClick={toggleTheme} style={{ display: 'flex', alignItems: 'center' }}>
+    <button onClick={toggleTheme} className="theme-toggle">
       <span className="material-symbols-rounded">
         {theme === 'dark' ? 'light_mode' : 'dark_mode'}
       </span>

@@ -7,6 +7,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* custom colors */
+  --matcha: #809671;
+  --almond: #E5E0D8;
+  --pistache: #B3B792;
+  --chai: #D2AB80;
+  --carob: #725C3A;
+  --vanilla: #E5D2B8;
 }
 
 :root[data-theme="dark"] {
@@ -16,18 +24,21 @@
   --link-hover-color: #535bf2;
   --footer-text-color: rgb(68, 68, 68);
   --button-bg: transparent;
+  --component: var(--matcha);
+  --component-alt: var(--almond);
 }
 
 :root[data-theme="light"] {
   --text-color: #213547;
-  --bg-color: #ffffff;
+  --bg-color: #E5E0D8;
   --link-color: #646cff;
   --link-hover-color: #747bff;
   --footer-text-color: rgb(68, 68, 68);
   --button-bg: #f9f9f9;
+  --component: var(--carob);
+  --component-alt: var(--vanilla);
 }
 
-/* Actualizar los colores existentes para usar variables */
 body {
   margin: 0;
   display: block;

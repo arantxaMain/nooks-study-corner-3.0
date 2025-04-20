@@ -3,6 +3,8 @@ import { useTimer } from '../hooks/useTimer';
 import '../styles/components/Pomodoro.css';
 import alarm from '../assets/alarm.mp3';
 
+
+
 const Pomodoro: React.FC = () => {
   const { timeLeft, isActive, isPaused, startTimer, pauseTimer, resetTimer, formatTime, isWorkTime } = useTimer();
   const [currentTime, setCurrentTime] = useState(new Date());

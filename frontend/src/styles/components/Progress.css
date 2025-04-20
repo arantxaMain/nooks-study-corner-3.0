@@ -4,17 +4,16 @@
   left: 0;
   right: 0;
   margin-bottom: 5em;
-  height: 0.5rem;
+  height: 0.1rem;
   width: 101%;
   overflow: hidden;
-  background-color: rgba(128, 150, 113, 0.2);
 }
 
 .progress-indicator {
   height: 100%;
   width: 100%;
   flex: 1;
-  background-color: #809671;
+  background-color: var(--component);
   transition: all 0.2s;
 }
 

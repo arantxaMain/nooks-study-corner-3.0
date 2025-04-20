@@ -1,3 +1,17 @@
-button {
-    color: white;
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+  color: var(--text-color);
+}
+
+.theme-toggle:hover {
+  background: rgba(128, 150, 113, 0.2);
+}
+
+.theme-toggle .material-symbols-rounded {
+  font-size: 1.5rem;
 }

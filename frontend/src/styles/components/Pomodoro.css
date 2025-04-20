@@ -8,7 +8,7 @@
 
 .pomodoro-reset-icon {
   font-size: 2.25rem;
-  color: #809671;
+  color: var(--component);
 }
 
 .pomodoro-time {
@@ -21,7 +21,7 @@
   margin: 0 auto;
   font-family: 'Sour Gummy', sans-serif;
   font-size: 6rem;
-  color: #809671;
+  color: var(--component);
 }
 
 .pomodoro-controls button {
@@ -30,7 +30,7 @@
 
 .pomodoro-control-icon {
   font-size: 5rem;
-  color: #809671;
+  color: var(--component);
 }
 
 .pomodoro-status {

@@ -11,22 +11,17 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #809671;
+  color: var(--component);
   padding: 0.5rem;
   border-radius: 50%;
   transition: all 0.2s;
 }
 
-.mute-button:hover {
-  background: rgba(128, 150, 113, 0.2);
-}
-
 .volume-slider {
-  -webkit-appearance: none;
   width: 80px;
   height: 4px;
   border-radius: 2px;
-  background: #809671;
+  background: var(--component);
   outline: none;
 }
 
@@ -35,7 +30,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #809671;
+  background: var(--component);
   cursor: pointer;
 }
 
@@ -43,7 +38,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #809671;
+  background: var(--component);
   cursor: pointer;
   border: none;
 }
