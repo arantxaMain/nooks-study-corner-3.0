@@ -18,8 +18,8 @@ export const TimerContext = createContext<TimerContextType | undefined>(undefine
 
 export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?: number; breakDuration?: number }> = ({
   children,
-  workDuration = 25*60,
-  breakDuration = 5*60,
+  workDuration = 10,
+  breakDuration = 5,
 }) => {
   const [timeLeft, setTimeLeft] = useState(workDuration);
   const [isActive, setIsActive] = useState(false);

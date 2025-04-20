@@ -21,6 +21,7 @@ createRoot(document.getElementById('root')!).render(
           <br />
           <a href="#">Github</a>
         </p>
+        <p>Alarm.wav by Tempouser -- https://freesound.org/s/162851/ -- License: Attribution NonCommercial 3.0</p>
       </div>
     </footer>
   </StrictMode>,
