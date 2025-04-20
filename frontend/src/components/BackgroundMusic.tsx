@@ -15,10 +15,21 @@ export default function BackgroundMusic() {
       if (newHour !== currentHour) {
         setCurrentHour(newHour);
         setMusic(playlist[newHour] || playlist[0]);
+        if (audioRef.current) {
+          audioRef.current.load();
+          audioRef.current.play();
+        }
       }
     }, 60000);
     return () => clearInterval(interval);
   }, [currentHour]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load();
+      audioRef.current.play();
+    }
+  }, [music]);
 
   useEffect(() => {
     const audio = audioRef.current;
