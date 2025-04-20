@@ -10,8 +10,9 @@ export default function BackgroundMusic() {
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newHour = new Date().getHours();
+    const checkHour = () => {
+      const now = new Date();
+      const newHour = now.getHours();
       if (newHour !== currentHour) {
         setCurrentHour(newHour);
         setMusic(playlist[newHour] || playlist[0]);
@@ -20,7 +21,22 @@ export default function BackgroundMusic() {
           audioRef.current.play();
         }
       }
-    }, 60000);
+      return now.getMinutes() === 0;
+    };
+
+    let interval: ReturnType<typeof setInterval>;
+    
+    if (new Date().getMinutes() === 0) {
+      interval = setInterval(checkHour, 60000);
+    } else {
+      interval = setInterval(() => {
+        if (checkHour()) {
+          clearInterval(interval);
+          interval = setInterval(checkHour, 60000);
+        }
+      }, 1000);
+    }
+
     return () => clearInterval(interval);
   }, [currentHour]);
 
