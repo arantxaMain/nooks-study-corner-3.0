@@ -1,0 +1,41 @@
+// src/components/Layout.tsx
+import { ReactNode } from 'react'
+import { ThemeToggle } from './ThemeToggle'
+import { Link, useLocation } from 'react-router-dom'
+
+type LayoutProps = {
+    children: ReactNode
+}
+
+export default function Layout({ children }: LayoutProps) {
+    // const location = useLocation()
+    const isHomePage = useLocation().pathname === '/'
+    return (
+        <>
+            <header className="header">
+                <h1>Nook's Study Corner</h1>
+                {isHomePage ?
+                    <Link to="/user" className="material-symbols-rounded">
+                        account_circle
+                    </Link>
+                    :
+                    <Link to="/" className="material-symbols-rounded">
+                        timer
+                    </Link>}
+
+            </header>
+
+            <main>{children}</main>
+
+            <footer className="footer">
+                <div>
+                    <ThemeToggle />
+                </div>
+                <div className="footer-text">
+                    <p>Alarm.wav by Tempouser -- https://freesound.org/s/162851/ -- License: Attribution NonCommercial 3.0</p>
+                </div>
+                <div></div>
+            </footer>
+        </>
+    )
+}

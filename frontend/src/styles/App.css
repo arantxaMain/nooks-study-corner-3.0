@@ -1,4 +1,4 @@
-.app-container {
+.app-container, .user-container {
   display: flex;
   flex-direction: column;
   align-items: center;
