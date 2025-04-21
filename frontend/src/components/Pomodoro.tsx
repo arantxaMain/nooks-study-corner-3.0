@@ -1,25 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTimer } from '../hooks/useTimer';
 import '../styles/components/Pomodoro.css';
-import alarm from '../assets/alarm.mp3';
-
-
 
 const Pomodoro: React.FC = () => {
   const { timeLeft, isActive, isPaused, startTimer, pauseTimer, resetTimer, formatTime, isWorkTime } = useTimer();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [endTime, setEndTime] = useState<Date | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    audioRef.current = new Audio(alarm);
-  }, []);
-
-  useEffect(() => {
-    if (timeLeft === 0 && isActive) {
-      audioRef.current?.play();
-    }
-  }, [timeLeft, isActive]);
 
   useEffect(() => {
     const interval = setInterval(() => {

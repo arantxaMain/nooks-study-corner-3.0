@@ -3,6 +3,8 @@ import { ReactNode } from 'react'
 import { ThemeToggle } from './ThemeToggle'
 import { Link, useLocation } from 'react-router-dom'
 import BackgroundMusic from './BackgroundMusic'
+import TimerProgress from './TimerProgress'
+import AlarmSound from './AlarmSound'
 
 type LayoutProps = {
     children: ReactNode
@@ -24,8 +26,12 @@ export default function Layout({ children }: LayoutProps) {
                     </Link>}
             </header>
 
-            <main>{children}</main>
-                    <BackgroundMusic />
+            <main>
+                {children}
+                <TimerProgress />
+                <BackgroundMusic />
+                <AlarmSound />
+            </main>
 
             <footer className="footer">
                 <div>
