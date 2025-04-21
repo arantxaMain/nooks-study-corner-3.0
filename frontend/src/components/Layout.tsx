@@ -2,13 +2,13 @@
 import { ReactNode } from 'react'
 import { ThemeToggle } from './ThemeToggle'
 import { Link, useLocation } from 'react-router-dom'
+import BackgroundMusic from './BackgroundMusic'
 
 type LayoutProps = {
     children: ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
-    // const location = useLocation()
     const isHomePage = useLocation().pathname === '/'
     return (
         <>
@@ -22,10 +22,10 @@ export default function Layout({ children }: LayoutProps) {
                     <Link to="/" className="material-symbols-rounded">
                         timer
                     </Link>}
-
             </header>
 
             <main>{children}</main>
+                    <BackgroundMusic />
 
             <footer className="footer">
                 <div>
@@ -34,7 +34,8 @@ export default function Layout({ children }: LayoutProps) {
                 <div className="footer-text">
                     <p>Alarm.wav by Tempouser -- https://freesound.org/s/162851/ -- License: Attribution NonCommercial 3.0</p>
                 </div>
-                <div></div>
+                <div>
+                </div>
             </footer>
         </>
     )

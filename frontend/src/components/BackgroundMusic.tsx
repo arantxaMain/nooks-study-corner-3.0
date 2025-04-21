@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import { playlist } from '../lib/playlist';
 import '../styles/components/BackgroundMusic.css';
+import { useLocation } from 'react-router-dom';
 
 export default function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [currentHour, setCurrentHour] = useState(new Date().getHours());  
+  const [currentHour, setCurrentHour] = useState(new Date().getHours());
   const [music, setMusic] = useState(playlist[currentHour] || playlist[0]);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
+  const isHomePage = useLocation().pathname === '/'
+  const isUserPage = useLocation().pathname === '/user'
 
   useEffect(() => {
     const checkHour = () => {
@@ -25,7 +28,7 @@ export default function BackgroundMusic() {
     };
 
     let interval: ReturnType<typeof setInterval>;
-    
+
     if (new Date().getMinutes() === 0) {
       interval = setInterval(checkHour, 60000);
     } else {
@@ -50,9 +53,10 @@ export default function BackgroundMusic() {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      audio.volume = isMuted ? 0 : volume;
+      const adjustedVolume = isUserPage ? volume / 8 : volume;
+      audio.volume = isMuted ? 0 : adjustedVolume;
     }
-  }, [volume, isMuted]);
+  }, [volume, isMuted, isUserPage]);
 
   const toggleMute = () => {
     setIsMuted(!isMuted);
@@ -63,22 +67,26 @@ export default function BackgroundMusic() {
       <audio ref={audioRef} loop autoPlay>
         <source src={music} type="audio/mpeg" />
       </audio>
-      
-      <button onClick={toggleMute} className="mute-button">
-        <span className="material-symbols-rounded">
-          {isMuted ? 'volume_off' : 'volume_up'}
-        </span>
-      </button>
 
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.1"
-        value={volume}
-        onChange={(e) => setVolume(Number(e.target.value))}
-        className="volume-slider"
-      />
+      {isHomePage ?
+        <>
+          <button onClick={toggleMute} className="mute-button">
+            <span className="material-symbols-rounded">
+              {isMuted ? 'volume_off' : 'volume_up'}
+            </span>
+          </button>
+
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={volume}
+            onChange={(e) => setVolume(Number(e.target.value))}
+            className="volume-slider"
+          />
+        </>
+        : null}
     </div>
   );
 }
