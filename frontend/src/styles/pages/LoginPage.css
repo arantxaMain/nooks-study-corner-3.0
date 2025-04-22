@@ -126,3 +126,9 @@
   color: var(--accent-color);
   text-decoration: underline;
 }
+
+.error-message {
+  color: var(--error-color, #ef4444);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}

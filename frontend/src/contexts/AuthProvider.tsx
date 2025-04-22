@@ -1,38 +1,44 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface User {
   email: string;
-  // Otros datos del usuario que quieras guardar
+  name: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string) => void;
+  login: (name: string, email: string) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Verificar si hay una sesión guardada
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
   }, []);
 
-  const login = (email: string) => {
-    const user = { email };
-    setUser(user);
-    localStorage.setItem('user', JSON.stringify(user));
+  const login = (name: string, email: string) => {
+    const mockUser = {
+      name,
+      email
+    };
+    
+    setUser(mockUser);
+    localStorage.setItem('user', JSON.stringify(mockUser));
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    navigate('/login');
   };
 
   return (
@@ -45,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth debe ser usado dentro de un AuthProvider');
   }
   return context;
 };

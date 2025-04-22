@@ -1,13 +1,30 @@
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 import '../styles/pages/LoginPage.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Aquí irá la lógica de login
-    console.log('Login con:', email);
+    setError('');
+
+    try {
+      if (!email.includes('@')) {
+        setError('Por favor, introduce un email válido');
+        return;
+      }
+
+      login(email, name);
+      navigate('/user');
+    } catch {
+      setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+    }
   };
 
   return (
@@ -15,9 +32,21 @@ export default function LoginPage() {
       <div className="login-form-wrapper">
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-header">
-            <span className="material-symbols-rounded">timer</span>
             <h1>Nook's Study Corner</h1>
             <p>Inicia sesión para continuar</p>
+          </div>
+
+          <div className="login-input-group">
+            <label htmlFor="name">Nombre</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Canela"
+              required
+            />
+            {error && <span className="error-message">{error}</span>}
           </div>
 
           <div className="login-input-group">
@@ -30,6 +59,7 @@ export default function LoginPage() {
               placeholder="m@example.com"
               required
             />
+            {error && <span className="error-message">{error}</span>}
           </div>
 
           <button type="submit" className="login-button">
@@ -38,13 +68,6 @@ export default function LoginPage() {
 
           <div className="login-divider">
             <span>O</span>
-          </div>
-
-          <div className="login-social-buttons">
-            <button type="button" className="social-button">
-              <span className="material-symbols-rounded">mail</span>
-              Continuar con Google
-            </button>
           </div>
 
           <p className="login-terms">
