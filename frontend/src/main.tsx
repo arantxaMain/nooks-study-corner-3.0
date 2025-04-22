@@ -8,19 +8,32 @@ import UserPage from './pages/UserPage.tsx'
 import Layout from './components/Layout.tsx'
 import { ThemeProvider } from './contexts/ThemeProvider'
 import { TimerProvider } from './contexts/TimerProvider'
+import { AuthProvider } from './contexts/AuthProvider'
+import { ProtectedRoute } from './components/ProtectedRoute'
+import LoginPage from './pages/LoginPage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <TimerProvider>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/user" element={<UserPage />} />
-            </Routes>
-          </Layout>
-        </TimerProvider>
+        <AuthProvider>
+          <TimerProvider>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<App />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route 
+                  path="/user" 
+                  element={
+                    <ProtectedRoute>
+                      <UserPage />
+                    </ProtectedRoute>
+                  } 
+                />
+              </Routes>
+            </Layout>
+          </TimerProvider>
+        </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
   </StrictMode>

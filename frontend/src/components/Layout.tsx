@@ -14,6 +14,8 @@ export default function Layout({ children }: LayoutProps) {
     const isHomePage = useLocation().pathname === '/'
     return (
         <>
+            <BackgroundMusic />
+            <AlarmSound />
             <header className="header">
                 <h1>Nook's Study Corner</h1>
                 {isHomePage ?
@@ -29,8 +31,6 @@ export default function Layout({ children }: LayoutProps) {
             <main>
                 {children}
                 <TimerProgress />
-                <BackgroundMusic />
-                <AlarmSound />
             </main>
 
             <footer className="footer">
