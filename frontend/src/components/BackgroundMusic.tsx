@@ -11,6 +11,7 @@ export default function BackgroundMusic() {
   const [isMuted, setIsMuted] = useState(false);
   const isHomePage = useLocation().pathname === '/'
   const isUserPage = useLocation().pathname === '/user'
+  const isLoginPage = useLocation().pathname === '/login'
 
   useEffect(() => {
     const checkHour = () => {
@@ -53,7 +54,7 @@ export default function BackgroundMusic() {
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
-      const adjustedVolume = isUserPage ? volume / 8 : volume;
+      const adjustedVolume = isUserPage || isLoginPage ? volume / 8 : volume;
       audio.volume = isMuted ? 0 : adjustedVolume;
     }
   }, [volume, isMuted, isUserPage]);

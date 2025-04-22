@@ -66,14 +66,8 @@ export default function LoginPage() {
             Iniciar Sesión
           </button>
 
-          <div className="login-divider">
-            <span>O</span>
-          </div>
-
           <p className="login-terms">
-            Al continuar, aceptas nuestros{" "}
-            <a href="#">Términos de Servicio</a> y{" "}
-            <a href="#">Política de Privacidad</a>
+          Al continuar, confirmas tu compromiso de por vida con Tom Nook y sus métodos de financiación creativa.
           </p>
         </form>
       </div>
