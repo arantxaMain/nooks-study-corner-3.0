@@ -32,7 +32,7 @@ export default function LoginPage() {
       <div className="login-form-wrapper">
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-header">
-            <h1>Nook's Study Corner</h1>
+            <h1>Bienvenido</h1>
             <p>Inicia sesión para continuar</p>
           </div>
 
@@ -67,7 +67,7 @@ export default function LoginPage() {
           </button>
 
           <p className="login-terms">
-          Al continuar, confirmas tu compromiso de por vida con Tom Nook y sus métodos de financiación creativa.
+            Al continuar, confirmas tu compromiso de por vida con Tom Nook y sus métodos de financiación creativa.
           </p>
         </form>
       </div>

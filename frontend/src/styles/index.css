@@ -15,28 +15,34 @@
   --chai: #D2AB80;
   --carob: #725C3A;
   --vanilla: #E5D2B8;
-}
-
-:root[data-theme="dark"] {
-  --text-color: rgba(255, 255, 255, 0.87);
-  --bg-color: #242424;
-  --link-color: #646cff;
-  --link-hover-color: #535bf2;
-  --footer-text-color: rgb(68, 68, 68);
-  --button-bg: transparent;
-  --component: var(--matcha);
-  --component-alt: var(--almond);
+  --accent: #A7442A;
+  --neutral: #888888;
 }
 
 :root[data-theme="light"] {
-  --text-color: #213547;
-  --bg-color: #E5E0D8;
-  --link-color: #646cff;
-  --link-hover-color: #747bff;
-  --footer-text-color: rgb(68, 68, 68);
-  --button-bg: #f9f9f9;
+  --text-color: var(--carob);
+  --bg-color: var(--almond);
+  --link-color: var(--matcha);
+  --link-hover-color: var(--chai);
+  --footer-text-color: var(--neutral);
+  --button-bg: var(--vanilla);
   --component: var(--carob);
-  --component-alt: var(--vanilla);
+  --component-alt: var(--chai);
+  --accent-color: var(--accent);
+  --border-color: var(--neutral);
+}
+
+:root[data-theme="dark"] {
+  --text-color: var(--matcha);
+  --bg-color: #1e1e1e;
+  --link-color: var(--pistache);
+  --link-hover-color: var(--chai);
+  --footer-text-color: var(--pistache);
+  --button-bg: #2f2f2f;
+  --component: var(--matcha);
+  --component-alt: var(--pistache);
+  --accent-color: var(--accent);
+  --border-color: var(--neutral);
 }
 
 body {
