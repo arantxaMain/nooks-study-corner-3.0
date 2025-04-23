@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom'
 import BackgroundMusic from './BackgroundMusic'
 import TimerProgress from './TimerProgress'
 import AlarmSound from './AlarmSound'
+import DayNightCycle from './DayNightCycle';
 
 type LayoutProps = {
     children: ReactNode
@@ -14,6 +15,7 @@ export default function Layout({ children }: LayoutProps) {
     const isHomePage = useLocation().pathname === '/'
     return (
         <>
+            <DayNightCycle />
             <BackgroundMusic />
             <AlarmSound />
             <header className="header">
