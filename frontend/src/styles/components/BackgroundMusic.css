@@ -7,6 +7,13 @@
   text-align: center;
 }
 
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
 .mute-button {
   background: var(--button-bg);
   border: none;

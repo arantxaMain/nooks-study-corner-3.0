@@ -70,7 +70,7 @@ export default function BackgroundMusic() {
       </audio>
 
       {isHomePage ?
-        <>
+        <div className='controls'>
           <button onClick={toggleMute} className="mute-button">
             <span className="material-symbols-rounded">
               {isMuted ? 'volume_off' : 'volume_up'}
@@ -86,7 +86,7 @@ export default function BackgroundMusic() {
             onChange={(e) => setVolume(Number(e.target.value))}
             className="volume-slider"
           />
-        </>
+        </div>
         : null}
     </div>
   );
