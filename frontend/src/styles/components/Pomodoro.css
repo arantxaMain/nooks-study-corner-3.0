@@ -1,36 +1,48 @@
 .pomodoro-container {
   margin-top: 8em;
+  padding: 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
 }
 
 .pomodoro-reset {
   cursor: pointer;
+  color: var(--text-color);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: var(--transition-smooth);
 }
 
-.pomodoro-reset-icon {
-  font-size: 2.25rem;
-  color: var(--component);
-}
-
-.pomodoro-time {
-  width: fit-content;
-  display: flex;
-  justify-content: center;
+.pomodoro-reset:hover {
+  background: var(--hover-bg);
+  transform: rotate(180deg);
 }
 
 .pomodoro-time-text {
   margin: 0 auto;
   font-family: 'Sour Gummy', sans-serif;
-  font-size: 6rem;
+  font-size: 8rem;
   color: var(--component);
-}
-
-.pomodoro-controls button {
-  cursor: pointer;
+  text-shadow: 2px 2px 4px var(--shadow-color);
+  transition: var(--transition-smooth);
 }
 
 .pomodoro-control-icon {
   font-size: 5rem;
   color: var(--component);
+  transition: var(--transition-smooth);
+}
+
+.pomodoro-controls button:hover .pomodoro-control-icon {
+  transform: scale(1.1);
+  color: var(--component-alt);
+}
+
+.pomodoro-controls button {
+  cursor: pointer;
 }
 
 .pomodoro-status {

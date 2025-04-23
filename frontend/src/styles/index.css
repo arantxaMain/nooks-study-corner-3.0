@@ -17,6 +17,15 @@
   --vanilla: #E5D2B8;
   --accent: #A7442A;
   --neutral: #888888;
+
+  /* efectos y sombras */
+  --shadow-sm: 0 2px 8px rgba(114, 92, 58, 0.05);
+  --shadow-md: 0 4px 12px rgba(114, 92, 58, 0.08);
+  --shadow-lg: 0 8px 24px rgba(114, 92, 58, 0.12);
+  --transition-base: all 0.2s ease;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --glass-light: rgba(229, 224, 216, 0.8);
+  --glass-dark: rgba(30, 30, 30, 0.8);
 }
 
 :root[data-theme="light"] {
@@ -30,6 +39,8 @@
   --component-alt: var(--chai);
   --accent-color: var(--accent);
   --border-color: var(--neutral);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
 :root[data-theme="dark"] {
@@ -43,6 +54,8 @@
   --component-alt: var(--pistache);
   --accent-color: var(--accent);
   --border-color: var(--neutral);
+  --card-bg: rgba(47, 47, 47, 0.7);
+  --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
 body {
@@ -82,22 +95,53 @@ body {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
 }
 
 .header a {
   font-size: 3em;
   color: var(--text-color);
+  transition: var(--transition-smooth);
 }
 
 .header a:hover {
-  color: var(--text-color);
+  color: var(--link-hover-color);
+  transform: scale(1.05);
 }
 
-body {
-  margin: 0;
-  display: block;
-  min-width: 320px;
-  overflow-x: hidden; 
+.material-symbols-rounded {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' -25,
+    'opsz' 48;
+}
+
+button {
+  background: var(--button-bg);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: var(--transition-smooth);
+}
+
+button:hover {
+  background: var(--hover-bg);
+  transform: translateY(-1px);
 }
 
 .footer {
@@ -111,7 +155,10 @@ body {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  background-color: var(--bg-color);
+  backdrop-filter: blur(8px);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
 }
 
 .footer-text {
@@ -144,6 +191,8 @@ button {
 h1 {
   font-size: 1.5em;
   line-height: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 button {

@@ -4,16 +4,19 @@
   left: 0;
   right: 0;
   margin-bottom: 5em;
-  height: 0.1rem;
+  height: 0.2rem;
   width: 101%;
   overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: blur(4px);
 }
 
 .progress-indicator {
   height: 100%;
   width: 100%;
   flex: 1;
-  background-color: var(--component);
-  transition: all 0.2s;
+  background: linear-gradient(90deg, var(--component) 0%, var(--component-alt) 100%);
+  box-shadow: 0 0 10px var(--component);
+  transition: all 0.3s ease-in-out;
 }
 
