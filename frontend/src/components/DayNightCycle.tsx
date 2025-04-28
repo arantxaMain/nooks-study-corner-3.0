@@ -9,7 +9,7 @@ export default function DayNightCycle() {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
-      return ((hours + minutes / 60) * 15);
+      return ((hours - 6 + minutes / 60) * 15);
     };
 
     setRotation(calculateRotation());
@@ -27,8 +27,8 @@ export default function DayNightCycle() {
         className="orbit" 
         style={{ transform: `rotate(${rotation}deg)` }}
       >
-        <div className="sun"></div>
         <div className="moon"></div>
+        <div className="sun"></div>
       </div>
     </div>
   );

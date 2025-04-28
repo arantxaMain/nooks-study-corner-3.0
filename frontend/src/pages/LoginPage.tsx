@@ -20,7 +20,7 @@ export default function LoginPage() {
         return;
       }
 
-      login(email, name);
+      login(name, email);
       navigate('/user');
     } catch {
       setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
