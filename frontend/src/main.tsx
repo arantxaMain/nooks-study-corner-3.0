@@ -11,6 +11,7 @@ import { TimerProvider } from './contexts/TimerProvider'
 import { AuthProvider } from './contexts/AuthProvider'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')!).render(
               <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path='/register' element={<RegisterPage />} />
                 <Route 
                   path="/user" 
                   element={

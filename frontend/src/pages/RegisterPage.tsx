@@ -33,7 +33,7 @@ export default function LoginPage() {
         <form className="login-form" onSubmit={handleSubmit}>
           <div className="login-header">
             <h1>¡Hola!</h1>
-            <p>Inicia sesión para continuar</p>
+            <p>Regístrate para continuar</p>
           </div>
 
           <div className="login-input-group">
@@ -67,10 +67,13 @@ export default function LoginPage() {
           </button>
 
           <div className="login-register">
-            <p>¿No tienes una cuenta?</p>
-            <a href="/register">Regístrate</a>
+            <p>¿Ya tienes una cuenta?</p>
+            <a href="/login">Inicia sesión</a>
           </div>
-
+            
+          <p className="login-terms">
+            Al continuar, confirmas tu compromiso de por vida con Tom Nook y sus métodos de financiación creativa.
+          </p>
         </form>
       </div>
     </div>
