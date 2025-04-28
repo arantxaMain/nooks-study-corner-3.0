@@ -6,6 +6,7 @@ import BackgroundMusic from './BackgroundMusic'
 import TimerProgress from './TimerProgress'
 import AlarmSound from './AlarmSound'
 import DayNightCycle from './DayNightCycle';
+import '../styles/index.css';
 
 type LayoutProps = {
     children: ReactNode
@@ -19,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
             <BackgroundMusic />
             <AlarmSound />
             <header className="header">
-                <h1>Nook's Study Corner</h1>
+                <h1><Link to="/">Nook's Study Corner</Link></h1>
                 {isHomePage ?
                     <Link to="/user" className="material-symbols-rounded">
                         account_circle

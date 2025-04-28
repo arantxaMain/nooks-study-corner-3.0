@@ -18,7 +18,7 @@
   --accent: #A7442A;
   --neutral: #888888;
 
-  /* efectos y sombras */
+  /* effects and shadows */
   --shadow-sm: 0 2px 8px rgba(114, 92, 58, 0.05);
   --shadow-md: 0 4px 12px rgba(114, 92, 58, 0.08);
   --shadow-lg: 0 8px 24px rgba(114, 92, 58, 0.12);
@@ -47,7 +47,7 @@
   --text-color: var(--matcha);
   --bg-color: #1e1e1e;
   --link-color: var(--pistache);
-  --link-hover-color: var(--chai);
+  --link-hover-color: var(--almond);
   --footer-text-color: var(--pistache);
   --button-bg: #2f2f2f;
   --component: var(--matcha);
@@ -99,6 +99,17 @@ body {
   background: var(--card-bg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-smooth);
+}
+
+.header h1 a {
+  font-size: 1.5em;
+  color: var(--text-color);
+  transition: var(--transition-smooth);
+}
+
+.header h1 a:hover {
+  color: var(--link-hover-color);
+  transform: scale(1.05);
 }
 
 .header a {
