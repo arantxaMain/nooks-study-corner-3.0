@@ -166,7 +166,6 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  backdrop-filter: blur(8px);
   background: var(--card-bg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition-smooth);

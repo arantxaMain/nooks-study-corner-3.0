@@ -24,7 +24,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (theme === 'auto') {
       document.documentElement.setAttribute('data-theme', calculateAutoTheme());
       
-      // Actualizar cada minuto
       const interval = setInterval(() => {
         document.documentElement.setAttribute('data-theme', calculateAutoTheme());
       }, 60000);

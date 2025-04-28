@@ -17,6 +17,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const currentTheme = document.documentElement.getAttribute('data-theme');
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -36,8 +37,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = () => {
+    
     setUser(null);
     localStorage.removeItem('user');
+    
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+    }
+    
     navigate('/login');
   };
 

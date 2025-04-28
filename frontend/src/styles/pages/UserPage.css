@@ -1,4 +1,9 @@
-
+.user-container {
+    display: flex;
+    min-height: 100vh;
+    padding: 5rem;
+    background-color: var(--bg-color);
+}
 
 .title {
     display: flex;
