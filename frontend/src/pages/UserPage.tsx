@@ -16,8 +16,10 @@ export default function UserPage() {
     return (
         <>
             <div className="user-container">
+                <div className='title'>
                 <h2>Bienvenido, {user.name}</h2>
                 <button className='logout-button' onClick={logout}>Cerrar Sesión</button>
+                </div>
                 <p>Aquí irá la info del usuario 🐾</p>
             </div>
         </>

@@ -9,7 +9,7 @@ export default function DayNightCycle() {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
-      return ((hours - 6 + minutes / 60) * 15);
+      return ((hours - 12 + minutes / 60) * 15);
     };
 
     setRotation(calculateRotation());

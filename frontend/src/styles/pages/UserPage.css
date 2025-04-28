@@ -1,3 +1,15 @@
-h2, .logout-button {
-    display: inline-block;
+
+
+.title {
+    display: flex;
+    align-items: first baseline;
+    height: 4em;
+    margin-bottom: 1em;
+    gap: 1em;
+    text-align: left;
+}
+
+.logout-button {
+    color: var(--text-color);
+    margin-left: auto;
 }
