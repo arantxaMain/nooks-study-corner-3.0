@@ -62,6 +62,35 @@ export default function LoginPage() {
             {error && <span className="error-message">{error}</span>}
           </div>
 
+          <div className="login-input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="********"
+              required
+            />
+          </div>
+
+          <div className="login-input-group">
+            <label htmlFor="confirm-password">Confirmar Contraseña</label>
+            <input
+              id="confirm-password"
+              type="password"
+              placeholder="********"
+              required
+            />
+          </div>
+
+          <div className="login-input-group select-group">
+            <label htmlFor='gender'>Género</label>
+            <select id='gender' required>
+              <option value='otro'>Otro</option>
+              <option value='hombre'>Hombre</option>
+              <option value='mujer'>Mujer</option>
+            </select>
+          </div>
+
           <button type="submit" className="login-button">
             Iniciar Sesión
           </button>
