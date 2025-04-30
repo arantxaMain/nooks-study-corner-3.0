@@ -1,0 +1,6 @@
+# MongoDB
+db/data/
+backend/data/db/
+
+backend/data/db/*
+!backend/data/db/.gitkeep

@@ -11,7 +11,6 @@ import com.nook.backend.model.User;
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
-
     @Autowired
     private UserService userService;
 
@@ -26,8 +25,6 @@ public class AuthController {
             .<ResponseEntity<Object>>map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(401).body("Usuario no encontrado"));
     }
-
-    
 }
 
 record LoginRequest(String email, String name) {}
