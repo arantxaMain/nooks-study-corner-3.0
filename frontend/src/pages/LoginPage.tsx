@@ -2,28 +2,46 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/LoginPage.css';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!name.trim()) {
+      newErrors.name = 'El nombre es requerido';
+    } else if (name.length < 2) {
+      newErrors.name = 'El nombre debe tener al menos 2 caracteres';
+    }
+
+    if (!email.trim()) {
+      newErrors.email = 'El email es requerido';
+    } else if (!email.includes('@')) {
+      newErrors.email = 'Por favor, introduce un email válido';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
-      if (!email.includes('@')) {
-        setError('Por favor, introduce un email válido');
-        return;
-      }
-
-      login(name, email);
+      await login(name, email);
       navigate('/user');
     } catch {
-      setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+      setErrors({ submit: 'Error al iniciar sesión. Por favor, inténtalo de nuevo.' });
     }
   };
 
@@ -31,6 +49,7 @@ export default function LoginPage() {
     <div className="login-container">
       <div className="login-form-wrapper">
         <form className="login-form" onSubmit={handleSubmit}>
+          {errors.submit && <ErrorMessage message={errors.submit} />}
           <div className="login-header">
             <h1>¡Hola!</h1>
             <p>Inicia sesión para continuar</p>
@@ -42,11 +61,16 @@ export default function LoginPage() {
               id="name"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (errors.name) {
+                  setErrors(prev => ({ ...prev, name: '' }));
+                }
+              }}
               placeholder="Canela"
               required
             />
-            {error && <span className="error-message">{error}</span>}
+            {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
 
           <div className="login-input-group">
@@ -55,11 +79,16 @@ export default function LoginPage() {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errors.email) {
+                  setErrors(prev => ({ ...prev, email: '' }));
+                }
+              }}
               placeholder="m@example.com"
               required
             />
-            {error && <span className="error-message">{error}</span>}
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
           <button type="submit" className="login-button">

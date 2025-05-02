@@ -22,14 +22,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = (name: string, email: string) => {
-    const mockUser = {
-      name,
-      email
-    };
-    
-    setUser(mockUser);
-    localStorage.setItem('user', JSON.stringify(mockUser));
+  const login = async (name: string, email: string) => {
+    try {
+      const response = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email })
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en el inicio de sesión');
+      }
+
+      const userData = await response.json();
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      navigate('/user');
+    } catch (error) {
+      console.error('Error durante el login:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
