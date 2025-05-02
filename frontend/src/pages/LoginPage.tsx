@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/LoginPage.css';
-import { ErrorMessage } from '../components/ErrorMessage';
+import Swal from'sweetalert2';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,23 +11,41 @@ export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  const showError = (text: string) => {
+    Swal.fire({
+      title: '¡Ups!',
+      text,
+      icon: 'error',
+      confirmButtonText: 'Entendido',
+      confirmButtonColor: '#88c9bf',
+      background: '#fff5e6',
+      customClass: {
+        popup: 'swal-custom-popup',
+        title: 'swal-custom-title',
+        confirmButton: 'swal-custom-confirm'
+      }
+    });
+  };
+
   const validateForm = () => {
-    const newErrors: Record<string, string> = {};
 
     if (!name.trim()) {
-      newErrors.name = 'El nombre es requerido';
+      showError('El nombre es requerido');
+      return false;
     } else if (name.length < 2) {
-      newErrors.name = 'El nombre debe tener al menos 2 caracteres';
+      showError('El nombre debe tener al menos 2 caracteres');
+      return false;
     }
 
     if (!email.trim()) {
-      newErrors.email = 'El email es requerido';
+      showError('El email es requerido');
+      return false;
     } else if (!email.includes('@')) {
-      newErrors.email = 'Por favor, introduce un email válido';
+      showError('El email debe contener un @');
+      return false;
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return true;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,7 +59,7 @@ export default function LoginPage() {
       await login(name, email);
       navigate('/user');
     } catch {
-      setErrors({ submit: 'Error al iniciar sesión. Por favor, inténtalo de nuevo.' });
+      showError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
   };
 
@@ -49,7 +67,6 @@ export default function LoginPage() {
     <div className="login-container">
       <div className="login-form-wrapper">
         <form className="login-form" onSubmit={handleSubmit}>
-          {errors.submit && <ErrorMessage message={errors.submit} />}
           <div className="login-header">
             <h1>¡Hola!</h1>
             <p>Inicia sesión para continuar</p>

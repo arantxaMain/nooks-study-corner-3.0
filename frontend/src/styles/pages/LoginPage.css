@@ -148,3 +148,20 @@
   color: var(--error-color);
   font-size: 0.875rem;
 }
+
+.swal-custom-popup {
+  font-family: 'Nunito', sans-serif;
+  border-radius: 15px;
+}
+
+.swal-custom-title {
+  color: #88c9bf;
+  font-size: 1.5em;
+}
+
+.swal-custom-confirm {
+  border-radius: 20px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
