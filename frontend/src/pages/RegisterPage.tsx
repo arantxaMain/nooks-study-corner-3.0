@@ -5,11 +5,14 @@ import Swal from 'sweetalert2';
 import '../styles/pages/LoginPage.css';
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    gender: 'otro',
+  });
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { login } = useAuth();
+  const { register } = useAuth();
   const navigate = useNavigate();
 
   const showError = (text: string) => {
@@ -29,27 +32,27 @@ export default function RegisterPage() {
   };
 
   const validateForm = () => {
-    if (!name.trim()) {
+    if (!user.name.trim()) {
       showError('El nombre es requerido');
       return false;
     }
-    if (name.length < 2) {
+    if (user.name.length < 2) {
       showError('El nombre debe tener al menos 2 caracteres');
       return false;
     }
-    if (!email.trim()) {
+    if (!user.email.trim()) {
       showError('El email es requerido');
       return false;
     }
-    if (!email.includes('@')) {
+    if (!user.email.includes('@')) {
       showError('Por favor, introduce un email válido');
       return false;
     }
-    if (!password) {
+    if (!user.password) {
       showError('La contraseña es requerida');
       return false;
     }
-    if (password.length < 6) {
+    if (user.password.length < 6) {
       showError('La contraseña debe tener al menos 6 caracteres');
       return false;
     }
@@ -57,7 +60,7 @@ export default function RegisterPage() {
       showError('Por favor, confirma tu contraseña');
       return false;
     }
-    if (password !== confirmPassword) {
+    if (user.password !== confirmPassword) {
       showError('Las contraseñas no coinciden');
       return false;
     }
@@ -72,7 +75,7 @@ export default function RegisterPage() {
     }
 
     try {
-      await login(name, email);
+      await register(user.name, user.email, user.password, user.gender);
       Swal.fire({
         title: '¡Bienvenido!',
         text: 'Registro completado correctamente',
@@ -88,10 +91,11 @@ export default function RegisterPage() {
       }).then(() => {
         navigate('/user');
       });
-    } catch {
+    } catch (error) {
+      console.error('Error durante el registro:', error);
       showError('Error al registrarse. Por favor, inténtalo de nuevo.');
     }
-  };
+};
 
   return (
     <div className="login-container">
@@ -107,8 +111,8 @@ export default function RegisterPage() {
             <input
               id="name"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={user.name}
+              onChange={(e) => setUser({...user, name: e.target.value})}
               placeholder="Canela"
               required
             />
@@ -119,8 +123,8 @@ export default function RegisterPage() {
             <input
               id="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={user.email}
+              onChange={(e) => setUser({...user, email: e.target.value})}
               placeholder="m@example.com"
               required
             />
@@ -131,8 +135,8 @@ export default function RegisterPage() {
             <input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={user.password}
+              onChange={(e) => setUser({...user, password: e.target.value})}
               placeholder="********"
               required
             />
@@ -152,7 +156,12 @@ export default function RegisterPage() {
 
           <div className="login-input-group select-group">
             <label htmlFor='gender'>Género</label>
-            <select id='gender' required>
+            <select 
+              id='gender' 
+              value={user.gender}
+              onChange={(e) => setUser({...user, gender: e.target.value})}
+              required
+            >
               <option value='otro'>Otro</option>
               <option value='hombre'>Hombre</option>
               <option value='mujer'>Mujer</option>
@@ -160,7 +169,7 @@ export default function RegisterPage() {
           </div>
 
           <button type="submit" className="login-button">
-            Iniciar Sesión
+            Registrarse
           </button>
 
           <div className="login-register">

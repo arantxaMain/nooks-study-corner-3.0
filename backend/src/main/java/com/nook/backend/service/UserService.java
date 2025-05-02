@@ -12,11 +12,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
     public Optional<User> findByEmailAndName(String email, String name) {
         return userRepository.findByEmailAndName(email, name);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 }

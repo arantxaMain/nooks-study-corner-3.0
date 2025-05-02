@@ -1,9 +1,11 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../types/user';
+import { api } from '../services/api';
 
 interface AuthContextType {
   user: User | null;
+  register: (name: string, email: string, password: string, gender: string) => void;
   login: (name: string, email: string) => void;
   logout: () => void;
 }
@@ -22,21 +24,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const register = async (name: string, email: string, password: string, gender: string) => {
+    try {
+      const userData = await api.register({ name, email, password, gender });
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      navigate('/user');
+    } catch (error) {
+      console.error('Error detallado durante el registro:', error);
+      throw error;
+    }
+  }
+
   const login = async (name: string, email: string) => {
     try {
-      const response = await fetch('http://localhost:8080/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email })
-      });
-
-      if (!response.ok) {
-        throw new Error('Error en el inicio de sesión');
-      }
-
-      const userData = await response.json();
+      const userData = await api.login({ name, email });
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       navigate('/user');
@@ -59,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.nook.backend.model.User;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -24,6 +25,16 @@ public class AuthController {
         return userService.findByEmailAndName(request.email(), request.name())
             .<ResponseEntity<Object>>map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(401).body("Usuario no encontrado"));
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user) {
+        try {
+            User savedUser = userService.saveUser(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }
 
