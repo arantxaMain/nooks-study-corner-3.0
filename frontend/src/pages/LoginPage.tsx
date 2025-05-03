@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/pages/LoginPage.css';
 import Swal from'sweetalert2';
 
@@ -111,7 +111,7 @@ export default function LoginPage() {
 
           <div className="login-register">
             <p>¿No tienes una cuenta?</p>
-            <a href="/register">Regístrate</a>
+            <Link to="/register">Regístrate</Link>
           </div>
 
         </form>
