@@ -21,6 +21,12 @@ public class UserService {
     }
 
     public User saveUser(User user) {
+        String mail = user.getEmail();
+        Optional<User> existingUser = userRepository.findByEmail(mail);
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("El correo electrónico ya está registrado");
+        }
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         return userRepository.save(user);

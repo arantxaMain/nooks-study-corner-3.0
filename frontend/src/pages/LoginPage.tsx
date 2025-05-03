@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../styles/pages/LoginPage.css';
 import Swal from'sweetalert2';
 
@@ -9,7 +9,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const showError = (text: string) => {
     Swal.fire({
@@ -54,7 +53,6 @@ export default function LoginPage() {
 
     try {
       await login(email, password);
-      navigate('/user');
     } catch {
       showError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
     }

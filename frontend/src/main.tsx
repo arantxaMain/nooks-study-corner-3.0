@@ -9,7 +9,7 @@ import Layout from './components/Layout.tsx'
 import { ThemeProvider } from './contexts/ThemeProvider'
 import { TimerProvider } from './contexts/TimerProvider'
 import { AuthProvider } from './contexts/AuthProvider'
-import { ProtectedRoute } from './components/ProtectedRoute'
+// import { ProtectedRoute } from './components/ProtectedRoute'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 
@@ -27,9 +27,9 @@ createRoot(document.getElementById('root')!).render(
                 <Route 
                   path="/user" 
                   element={
-                    <ProtectedRoute>
+                    // <ProtectedRoute>
                       <UserPage />
-                    </ProtectedRoute>
+                    // </ProtectedRoute>
                   } 
                 />
               </Routes>

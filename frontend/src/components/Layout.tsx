@@ -1,19 +1,31 @@
 // src/components/Layout.tsx
 import { ReactNode } from 'react'
 import { ThemeToggle } from './ThemeToggle'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import BackgroundMusic from './BackgroundMusic'
 import TimerProgress from './TimerProgress'
 import AlarmSound from './AlarmSound'
 import DayNightCycle from './DayNightCycle';
 import '../styles/index.css';
+import { useAuth } from '../contexts/AuthProvider'
 
 type LayoutProps = {
     children: ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
-    const isHomePage = useLocation().pathname === '/'
+    const location = useLocation();
+    const isHomePage = location.pathname === '/'
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    const handleUserIconClick = (e: React.MouseEvent) => {
+        if (!user) {
+            e.preventDefault();
+            navigate('/login');
+        }
+    };
+
     return (
         <>
             <DayNightCycle />
@@ -22,7 +34,7 @@ export default function Layout({ children }: LayoutProps) {
             <header className="header">
                 <h1><Link to="/">Nook's Study Corner</Link></h1>
                 {isHomePage ?
-                    <Link to="/user" className="material-symbols-rounded">
+                    <Link to="/user" className="material-symbols-rounded" onClick={handleUserIconClick}>
                         account_circle
                     </Link>
                     :

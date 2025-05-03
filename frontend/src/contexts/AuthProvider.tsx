@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userData = await api.register({ name, email, password, gender });
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
-      navigate('/user');
+      navigate('/');
     } catch (error) {
       console.error('Error detallado durante el registro:', error);
       throw error;
@@ -41,7 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const userData = await api.login({ email, password });
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
-      navigate('/user');
+      navigate('/');
     } catch (error) {
       console.error('Error durante el login:', error);
       throw error;
@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       document.documentElement.setAttribute('data-theme', currentTheme);
     }
     
-    navigate('/login');
+    navigate('/');
   };
 
   return (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../styles/pages/LoginPage.css';
 
@@ -13,7 +13,6 @@ export default function RegisterPage() {
   });
   const [confirmPassword, setConfirmPassword] = useState('');
   const { register } = useAuth();
-  const navigate = useNavigate();
 
   const showError = (text: string) => {
     Swal.fire({
@@ -88,8 +87,6 @@ export default function RegisterPage() {
           title: 'swal-custom-title',
           confirmButton: 'swal-custom-confirm'
         }
-      }).then(() => {
-        navigate('/user');
       });
     } catch (error) {
       console.error('Error durante el registro:', error);

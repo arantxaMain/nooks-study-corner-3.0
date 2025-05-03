@@ -3,11 +3,7 @@ import '../styles/pages/UserPage.css';
 import { useAuth } from '../contexts/AuthProvider';
 
 export default function UserPage() {
-    const { user } = useAuth();
-    const logout = () => {
-        localStorage.removeItem('user');
-        window.location.reload();
-    };
+    const { user, logout } = useAuth();
 
     if (!user) {
         return <div>Error: No se encontraron datos del usuario.</div>;
