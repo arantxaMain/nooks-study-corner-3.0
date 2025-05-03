@@ -1,8 +1,8 @@
 const API_BASE_URL = 'http://localhost:8080/api';
 
 interface LoginRequest {
-  name: string;
   email: string;
+  password: string;
 }
 
 interface RegisterRequest {
@@ -39,8 +39,8 @@ export const api = {
     return data;
 },
 
-  async login({ name, email }: LoginRequest) {
-    const bodyData = { name, email };
+  async login({ email, password }: LoginRequest) {
+    const bodyData = { email, password };
     console.log('Datos enviados al login:', bodyData);
     
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -49,7 +49,7 @@ export const api = {
         'Content-Type': 'application/json',
       },
       mode: 'cors',
-      body: JSON.stringify({ name, email })
+      body: JSON.stringify(bodyData)
     });
 
     if (!response.ok) {
@@ -58,5 +58,5 @@ export const api = {
     }
 
     return response.json();
-  }
+}
 };

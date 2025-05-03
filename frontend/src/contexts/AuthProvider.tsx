@@ -6,7 +6,7 @@ import { api } from '../services/api';
 interface AuthContextType {
   user: User | null;
   register: (name: string, email: string, password: string, gender: string) => void;
-  login: (name: string, email: string) => void;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -36,9 +36,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const login = async (name: string, email: string) => {
+  const login = async (email: string, password: string) => {
     try {
-      const userData = await api.login({ name, email });
+      const userData = await api.login({ email, password });
       setUser(userData);
       localStorage.setItem('user', JSON.stringify(userData));
       navigate('/user');
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error('Error durante el login:', error);
       throw error;
     }
-  };
+};
 
   const logout = () => {
     

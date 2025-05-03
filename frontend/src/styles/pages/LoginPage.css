@@ -17,9 +17,9 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 2rem;
-  background: var(--background-color);
+  background: var(--card-bg);
   border-radius: 1rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .login-header {
@@ -56,7 +56,7 @@
   padding: 0.875rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: var(--button-bg);
+  background-color: var(--card-bg);
   color: var(--text-color);
   transition: var(--transition-base);
 }
@@ -144,18 +144,43 @@
   transition: var(--transition-base);
 }
 
-  .error-message {
-  color: var(--error-color);
-  font-size: 0.875rem;
-}
-
 .swal-custom-popup {
   font-family: 'Nunito', sans-serif;
   border-radius: 15px;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.swal2-title {
+  color: var(--text-color) !important;
+}
+
+.swal2-html-container {
+  color: var(--text-color) !important;
+}
+
+.swal2-icon.swal2-error {
+  border-color: var(--accent) !important;
+}
+
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+  background-color: var(--accent) !important;
+}
+
+.swal2-icon.swal2-success {
+  border-color: var(--component) !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: var(--component) !important;
+}
+
+.swal2-icon.swal2-success [class^='swal2-success-line'] {
+  background-color: var(--component) !important;
 }
 
 .swal-custom-title {
-  color: #88c9bf;
   font-size: 1.5em;
 }
 
@@ -164,4 +189,10 @@
   font-weight: bold !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
+  background-color: var(--component) !important;
+  color: var(--bg-color) !important;
+}
+
+.swal-custom-confirm:focus {
+  box-shadow: none !important;
 }

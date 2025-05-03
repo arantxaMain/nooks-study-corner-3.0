@@ -22,7 +22,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest request) {
-        return userService.findByEmailAndName(request.email(), request.name())
+        return userService.login(request.email(), request.password())
             .<ResponseEntity<Object>>map(ResponseEntity::ok)
             .orElse(ResponseEntity.status(401).body("Usuario no encontrado"));
     }
@@ -38,4 +38,4 @@ public class AuthController {
     }
 }
 
-record LoginRequest(String email, String name) {}
+record LoginRequest(String email, String password) {}

@@ -6,7 +6,7 @@ import Swal from'sweetalert2';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -17,35 +17,32 @@ export default function LoginPage() {
       text,
       icon: 'error',
       confirmButtonText: 'Entendido',
-      confirmButtonColor: '#88c9bf',
       background: '#fff5e6',
       customClass: {
         popup: 'swal-custom-popup',
         title: 'swal-custom-title',
-        confirmButton: 'swal-custom-confirm'
+        confirmButton: 'swal-custom-confirm',
       }
     });
   };
 
   const validateForm = () => {
+    const newErrors: Record<string, string> = {};
 
-    if (!name.trim()) {
-      showError('El nombre es requerido');
-      return false;
-    } else if (name.length < 2) {
-      showError('El nombre debe tener al menos 2 caracteres');
-      return false;
+    if (!email) {
+      newErrors.email = 'El correo electrónico es requerido';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Por favor, introduce un correo electrónico válido';
     }
 
-    if (!email.trim()) {
-      showError('El email es requerido');
-      return false;
-    } else if (!email.includes('@')) {
-      showError('El email debe contener un @');
-      return false;
+    if (!password) {
+      newErrors.password = 'La contraseña es requerida';
+    } else if (password.length < 6) {
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
     }
 
-    return true;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,10 +53,10 @@ export default function LoginPage() {
     }
 
     try {
-      await login(name, email);
+      await login(email, password);
       navigate('/user');
     } catch {
-      showError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+      showError('Error al iniciar sesión. Por favor, verifica tus credenciales.');
     }
   };
 
@@ -70,24 +67,6 @@ export default function LoginPage() {
           <div className="login-header">
             <h1>¡Hola!</h1>
             <p>Inicia sesión para continuar</p>
-          </div>
-
-          <div className="login-input-group">
-            <label htmlFor="name">Nombre</label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                if (errors.name) {
-                  setErrors(prev => ({ ...prev, name: '' }));
-                }
-              }}
-              placeholder="Canela"
-              required
-            />
-            {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
 
           <div className="login-input-group">
@@ -106,6 +85,24 @@ export default function LoginPage() {
               required
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
+          </div>
+
+          <div className="login-input-group">
+            <label htmlFor="password">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password) {
+                  setErrors(prev => ({ ...prev, password: '' }));
+                }
+              }}
+              placeholder="Tu contraseña"
+              required
+            />
+            {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
           <button type="submit" className="login-button">

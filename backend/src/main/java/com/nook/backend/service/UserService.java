@@ -3,6 +3,7 @@ package com.nook.backend.service;
 import com.nook.backend.model.User;
 import com.nook.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -12,15 +13,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findByEmailAndName(String email, String name) {
-        return userRepository.findByEmailAndName(email, name);
+    public User saveUser(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+        return userRepository.save(user);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public Optional<User> login(String email, String password) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+            return user;
+        }
+        return Optional.empty();
     }
 }
