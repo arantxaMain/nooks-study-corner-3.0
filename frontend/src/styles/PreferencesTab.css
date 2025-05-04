@@ -1,0 +1,75 @@
+
+.preferences-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group h4 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.input-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.input-group input {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--input-bg);
+    color: var(--text-color);
+}
+
+.input-group input:disabled {
+    background: var(--disabled-bg);
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: flex-start;
+}
+
+.button-group button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.danger-zone {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.delete-account-button {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.delete-account-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
