@@ -11,8 +11,12 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('theme');
-    return (saved as Theme) || 'light';
+    try {
+      const saved = localStorage.getItem('theme');
+      return saved ? (saved as Theme) : 'light';
+    } catch {
+      return 'light';
+    }
   });
 
   const calculateAutoTheme = () => {
@@ -21,18 +25,27 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    if (theme === 'auto') {
-      document.documentElement.setAttribute('data-theme', calculateAutoTheme());
-      
-      const interval = setInterval(() => {
-        document.documentElement.setAttribute('data-theme', calculateAutoTheme());
-      }, 60000);
-
-      return () => clearInterval(interval);
-    } else {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
     localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    try {
+      if (theme === 'auto') {
+        const autoTheme = calculateAutoTheme();
+        document.documentElement.setAttribute('data-theme', autoTheme);
+        
+        const interval = setInterval(() => {
+          const newAutoTheme = calculateAutoTheme();
+          document.documentElement.setAttribute('data-theme', newAutoTheme);
+        }, 60000);
+
+        return () => clearInterval(interval);
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+    } catch (error) {
+      console.error('Error al aplicar el tema:', error);
+    }
   }, [theme]);
 
   const toggleTheme = () => {
