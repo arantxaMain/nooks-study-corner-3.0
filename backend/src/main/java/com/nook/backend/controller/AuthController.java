@@ -39,6 +39,19 @@ public class AuthController {
                 .body("Error al procesar el registro");
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+        try {
+            User updatedUser = userService.updateUser(user);
+            return ResponseEntity.ok(updatedUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error al actualizar el usuario");
+        }
+    }
 }
 
 record LoginRequest(String email, String password) {}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
+import { api } from '../services/api';
 import '../styles/PreferencesTab.css';
 
 const PreferencesTab = () => {
     const { user } = useAuth();
-    const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         name: user?.name,
         email: user?.email,
@@ -23,10 +23,21 @@ const PreferencesTab = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Aquí irá la lógica para actualizar los datos
-        setIsEditing(false);
+        const updatedUser = {
+            ...user,
+            workDuration: Number(formData.studyTime) * 60,
+            breakDuration: Number(formData.breakTime) * 60
+        };
+
+        try {
+            const data = await api.updateUser(updatedUser);
+            localStorage.setItem('user', JSON.stringify(data));
+            alert('Preferencias actualizadas con éxito');
+        } catch (error) {
+            console.error('Error al actualizar las preferencias:', error);
+        }
     };
 
     const handleDeleteAccount = () => {
@@ -38,7 +49,7 @@ const PreferencesTab = () => {
     return (
         <div className="preferences-container">
             <h3>Preferencias</h3>
-            
+
             <form onSubmit={handleSubmit} className="preferences-form">
                 <div className="form-group">
                     <h4>Información Personal</h4>
@@ -49,7 +60,6 @@ const PreferencesTab = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className="input-group">
@@ -59,43 +69,41 @@ const PreferencesTab = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            disabled={!isEditing}
                         />
                     </div>
                 </div>
 
-                {isEditing && (
-                    <div className="form-group">
-                        <h4>Cambiar Contraseña</h4>
-                        <div className="input-group">
-                            <label>Contraseña Actual:</label>
-                            <input
-                                type="password"
-                                name="currentPassword"
-                                value={formData.currentPassword}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label>Nueva Contraseña:</label>
-                            <input
-                                type="password"
-                                name="newPassword"
-                                value={formData.newPassword}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label>Confirmar Nueva Contraseña:</label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleInputChange}
-                            />
-                        </div>
+                <div className="form-group">
+                    <h4>Cambiar Contraseña</h4>
+                    <div className="input-group">
+                        <label>Contraseña Actual:</label>
+                        <input
+                            type="password"
+                            name="currentPassword"
+                            value={formData.currentPassword}
+                            onChange={handleInputChange}
+                        />
                     </div>
-                )}
+                    <div className="input-group">
+                        <label>Nueva Contraseña:</label>
+                        <input
+                            type="password"
+                            name="newPassword"
+                            value={formData.newPassword}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Confirmar Nueva Contraseña:</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+
 
                 <div className="form-group">
                     <h4>Configuración de Tiempo</h4>
@@ -108,7 +116,6 @@ const PreferencesTab = () => {
                             onChange={handleInputChange}
                             min="1"
                             max="60"
-                            disabled={!isEditing}
                         />
                     </div>
                     <div className="input-group">
@@ -120,30 +127,19 @@ const PreferencesTab = () => {
                             onChange={handleInputChange}
                             min="1"
                             max="30"
-                            disabled={!isEditing}
                         />
                     </div>
                 </div>
 
                 <div className="button-group">
-                    {!isEditing ? (
-                        <button type="button" onClick={() => setIsEditing(true)}>
-                            Editar Preferencias
-                        </button>
-                    ) : (
-                        <>
-                            <button type="submit">Guardar Cambios</button>
-                            <button type="button" onClick={() => setIsEditing(false)}>
-                                Cancelar
-                            </button>
-                        </>
-                    )}
+
+                    <button type="submit">Guardar Cambios</button>
                 </div>
 
                 <div className="danger-zone">
                     <h4>Zona de Peligro</h4>
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         className="delete-account-button"
                         onClick={handleDeleteAccount}
                     >

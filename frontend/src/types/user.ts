@@ -3,7 +3,6 @@ export interface User {
   email: string;
   password: string;
   gender: string;
-  totalHours: number;
-  workMinutes: number;
-  breakMinutes: number;
+  workDuration: number;
+  breakDuration: number;
 }

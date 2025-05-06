@@ -10,11 +10,29 @@ interface RegisterRequest {
   email: string;
   password: string;
   gender: string;
+  workDuration?: number;
+  breakDuration?: number;
+}
+
+interface UpdateUserRequest {
+  name?: string;
+  email?: string;
+  password?: string;
+  gender?: string;
+  workDuration?: number;
+  breakDuration?: number;
 }
 
 export const api = {
   async register({ name, email, password, gender }: RegisterRequest) {
-    const bodyData = { name, email, password, gender };
+    const bodyData = { 
+      name, 
+      email, 
+      password, 
+      gender,
+      workDuration: 1500,
+      breakDuration: 300
+    };
     console.log('Datos enviados al registro:', bodyData);
     
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -25,7 +43,6 @@ export const api = {
       body: JSON.stringify(bodyData)
     });
 
-    // Agregar log de la respuesta
     console.log('Respuesta del servidor:', response);
     
     if (!response.ok) {
@@ -58,5 +75,22 @@ export const api = {
     }
 
     return response.json();
-}
+},
+
+  async updateUser(updatedUser: UpdateUserRequest) {
+    const response = await fetch(`${API_BASE_URL}/auth/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error al actualizar el usuario: ${errorData}`);
+    }
+
+    return response.json();
+  }
 };

@@ -15,4 +15,6 @@ public class User {
     private String email;
     private String password;
     private String gender;
+    private Integer workDuration = 1500;
+    private Integer breakDuration = 300;
 }

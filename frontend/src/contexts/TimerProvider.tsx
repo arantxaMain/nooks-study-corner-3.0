@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from '../contexts/AuthProvider';
 
 interface TimerContextType {
   timeLeft: number;
@@ -16,17 +17,19 @@ interface TimerContextType {
 
 export const TimerContext = createContext<TimerContextType | undefined>(undefined);
 
-export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?: number; breakDuration?: number }> = ({
-  children,
-  workDuration = 10,
-  breakDuration = 5,
+export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({
+  children
 }) => {
-  const [timeLeft, setTimeLeft] = useState(workDuration);
+  const { user } = useAuth();
+  const defaultWorkDuration = (user?.workDuration || 25 * 60);
+  const defaultBreakDuration = (user?.breakDuration || 5 * 60);
+  
+  const [timeLeft, setTimeLeft] = useState(defaultWorkDuration);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isWorkTime, setIsWorkTime] = useState(true);
 
-  const currentDuration = isWorkTime ? workDuration : breakDuration;
+  const currentDuration = isWorkTime ? defaultWorkDuration : defaultBreakDuration;
   const progress = ((currentDuration - timeLeft) / currentDuration) * 100;
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?:
 
   const togglePhase = () => {
     setIsWorkTime((prev) => !prev);
-    setTimeLeft(!isWorkTime ? workDuration : breakDuration); // cambia el tiempo
+    setTimeLeft(!isWorkTime ? defaultWorkDuration : defaultBreakDuration);
   };
 
   const startTimer = () => {
@@ -66,7 +69,7 @@ export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?:
   const resetTimer = () => {
     setIsActive(false);
     setIsPaused(false);
-    setTimeLeft(workDuration);
+    setTimeLeft(defaultWorkDuration);
   };
 
   const formatTime = (seconds: number): string => {
@@ -87,8 +90,8 @@ export const TimerProvider: React.FC<{ children: React.ReactNode; workDuration?:
         resetTimer,
         formatTime,
         isWorkTime,
-        workDuration,
-        breakDuration,
+        workDuration: defaultWorkDuration,
+        breakDuration: defaultBreakDuration,
       }}
     >
       {children}

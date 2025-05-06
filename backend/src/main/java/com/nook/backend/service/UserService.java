@@ -27,6 +27,13 @@ public class UserService {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
 
+        if (user.getWorkDuration() == null) {
+            user.setWorkDuration(1500);
+        }
+        if (user.getBreakDuration() == null) {
+            user.setBreakDuration(300);
+        }
+
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         return userRepository.save(user);
@@ -38,5 +45,16 @@ public class UserService {
             return user;
         }
         return Optional.empty();
+    }
+
+    public User updateUser(User updatedUser) {
+        Optional<User> existingUser = userRepository.findByEmail(updatedUser.getEmail());
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.setWorkDuration(updatedUser.getWorkDuration());
+            user.setBreakDuration(updatedUser.getBreakDuration());
+            return userRepository.save(user);
+        }
+        throw new RuntimeException("Usuario no encontrado");
     }
 }
