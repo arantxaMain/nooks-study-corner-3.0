@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
 import { api } from '../services/api';
 import '../styles/PreferencesTab.css';
-import { TimerProvider } from '../contexts/TimerProvider';
 
 const PreferencesTab = () => {
     const { user, setUser } = useAuth();
@@ -12,8 +11,8 @@ const PreferencesTab = () => {
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
-        studyTime: user?.workDuration / 60,
-        breakTime: user?.breakDuration / 60
+        studyTime: user?.workDuration ? user.workDuration / 60 : 25,
+        breakTime: user?.breakDuration ? user.breakDuration / 60 : 5
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

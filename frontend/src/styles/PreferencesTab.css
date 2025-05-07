@@ -29,8 +29,13 @@
     padding: 0.5rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    background: var(--input-bg);
     color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.input-group input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px var(--bg-color) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
 }
 
 .input-group input:disabled {
