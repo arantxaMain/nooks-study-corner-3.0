@@ -78,6 +78,12 @@ export const TimerProvider: React.FC<{ children: React.ReactNode }> = ({
     return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
   };
 
+  useEffect(() => {
+    if (!isActive) {
+      setTimeLeft(isWorkTime ? defaultWorkDuration : defaultBreakDuration);
+    }
+  }, [user?.workDuration, user?.breakDuration]);
+
   return (
     <TimerContext.Provider
       value={{

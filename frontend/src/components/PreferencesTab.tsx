@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthProvider';
 import { api } from '../services/api';
 import '../styles/PreferencesTab.css';
+import { TimerProvider } from '../contexts/TimerProvider';
 
 const PreferencesTab = () => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
     const [formData, setFormData] = useState({
         name: user?.name,
         email: user?.email,
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
-        studyTime: 25,
-        breakTime: 5
+        studyTime: user?.workDuration / 60,
+        breakTime: user?.breakDuration / 60
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +35,7 @@ const PreferencesTab = () => {
         try {
             const data = await api.updateUser(updatedUser);
             localStorage.setItem('user', JSON.stringify(data));
+            setUser(data);  // Actualizar el usuario en el contexto
             alert('Preferencias actualizadas con éxito');
         } catch (error) {
             console.error('Error al actualizar las preferencias:', error);
@@ -132,7 +134,6 @@ const PreferencesTab = () => {
                 </div>
 
                 <div className="button-group">
-
                     <button type="submit">Guardar Cambios</button>
                 </div>
 
