@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 import com.nook.backend.model.User;
 import org.springframework.http.HttpStatus;
 
@@ -23,8 +24,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody LoginRequest request) {
         return userService.login(request.email(), request.password())
-            .<ResponseEntity<Object>>map(ResponseEntity::ok)
-            .orElse(ResponseEntity.status(401).body("Usuario no encontrado"));
+                .<ResponseEntity<Object>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(401).body("Usuario no encontrado"));
     }
 
     @PostMapping("/register")
@@ -36,7 +37,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error al procesar el registro");
+                    .body("Error al procesar el registro");
         }
     }
 
@@ -49,9 +50,25 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Error al actualizar el usuario");
+                    .body("Error al actualizar el usuario");
         }
+    }
+
+    @PutMapping("/users/{userId}/study-minutes")
+    public ResponseEntity<User> updateStudyMinutes(
+            @PathVariable String userId,
+            @RequestParam String date,
+            @RequestParam Integer minutes) {
+
+        User user = userService.findById(userId);
+        Map<String, Integer> studyMinutes = user.getStudyMinutes();
+        studyMinutes.merge(date, minutes, Integer::sum);
+        user.setStudyMinutes(studyMinutes);
+
+        User updatedUser = userService.save(user);
+        return ResponseEntity.ok(updatedUser);
     }
 }
 
-record LoginRequest(String email, String password) {}
+record LoginRequest(String email, String password) {
+}

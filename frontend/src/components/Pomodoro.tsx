@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useTimer } from '../hooks/useTimer';
+import { api } from '../services/api';
 import '../styles/components/Pomodoro.css';
 
 const Pomodoro: React.FC = () => {
   const { timeLeft, isActive, isPaused, startTimer, pauseTimer, resetTimer, formatTime, isWorkTime } = useTimer();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [endTime, setEndTime] = useState<Date | null>(null);
+  const [studyTimeAccumulated, setStudyTimeAccumulated] = useState<number>(0);
+  const [lastTimeCheck, setLastTimeCheck] = useState<number | null>(null);
+  const [lastPauseTime, setLastPauseTime] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -24,9 +28,108 @@ const Pomodoro: React.FC = () => {
     }
   }, [isActive, isPaused]);
 
+  useEffect(() => {
+    if (isWorkTime && isActive && !isPaused) {
+      const interval = setInterval(() => {
+        setStudyTimeAccumulated(prev => prev + 1);
+      }, 60000); // Incrementar cada minuto
+      return () => clearInterval(interval);
+    }
+  }, [isWorkTime, isActive, isPaused]);
+
+  useEffect(() => {
+    if (isWorkTime && isActive) {
+      if (isPaused) {
+        setLastPauseTime(timeLeft);
+      } else if (lastPauseTime !== null) {
+        const studiedMinutes = Math.ceil((lastPauseTime - timeLeft) / 60);
+        if (studiedMinutes > 0) {
+          const today = new Date().toISOString().split('T')[0];
+          api.updateStudyMinutes(today, studiedMinutes);
+        }
+        setLastPauseTime(null);
+      }
+    }
+  }, [isPaused, isWorkTime, isActive, timeLeft, lastPauseTime]);
+
+  useEffect(() => {
+    if (timeLeft === 0 && isWorkTime && isActive) {
+      const today = new Date().toISOString().split('T')[0];
+      const studiedMinutes = Math.ceil(studyTimeAccumulated);
+      if (studiedMinutes > 0) {
+        api.updateStudyMinutes(today, studiedMinutes);
+        setStudyTimeAccumulated(0);
+      }
+    }
+  }, [timeLeft, isWorkTime, isActive, studyTimeAccumulated]);
+
+  const saveStudyTime = (minutes: number) => {
+    if (minutes > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      console.log('Intentando guardar tiempo de estudio...'); 
+      console.log(`Minutos a guardar: ${minutes}`);
+      console.log(`Fecha actual: ${today}`);
+      api.updateStudyMinutes(today, minutes)
+        .then(response => {
+          console.log('Respuesta del servidor:', response);
+        })
+        .catch(error => {
+          console.error('Error al guardar tiempo:', error);
+        });
+    } else {
+      console.log('No se guardó tiempo porque los minutos son 0 o negativos:', minutes);
+    }
+  };
+
+  useEffect(() => {
+    if (isWorkTime && isActive && !isPaused) {
+      console.log('Iniciando sesión de trabajo');
+      setLastTimeCheck(timeLeft);
+    } else if (isWorkTime && lastTimeCheck !== null) {
+      const initialTime = lastTimeCheck;
+      const currentTimeLeft = timeLeft;
+      const elapsedSeconds = initialTime - currentTimeLeft;
+      const studiedMinutes = Math.floor(elapsedSeconds / 60);
+      
+      console.log('Datos del cálculo:', {
+        initialTime,
+        currentTimeLeft,
+        elapsedSeconds,
+        studiedMinutes
+      });
+
+      if (studiedMinutes > 0) {
+        saveStudyTime(studiedMinutes);
+      }
+      setLastTimeCheck(null);
+    }
+  }, [isWorkTime, isActive, isPaused]);
+
+  const handleReset = () => {
+    if (isWorkTime && lastTimeCheck !== null) {
+      const initialTime = lastTimeCheck;
+      const currentTimeLeft = timeLeft;
+      const elapsedSeconds = initialTime - currentTimeLeft;
+      const studiedMinutes = Math.floor(elapsedSeconds / 60);
+
+      console.log('Datos del reset:', {
+        initialTime,
+        currentTimeLeft,
+        elapsedSeconds,
+        studiedMinutes
+      });
+
+      if (studiedMinutes > 0) {
+        saveStudyTime(studiedMinutes);
+      }
+    }
+    resetTimer();
+    setLastTimeCheck(null);
+  };
+
   return (
     <div className='pomodoro-container'>
-      <button className='pomodoro-reset' onClick={resetTimer}>
+      <button className='pomodoro-reset' onClick={handleReset}>
         <span className="material-symbols-rounded pomodoro-reset-icon">refresh</span>
       </button>
       <div className="pomodoro-time">

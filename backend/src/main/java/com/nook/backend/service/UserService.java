@@ -57,4 +57,13 @@ public class UserService {
         }
         throw new RuntimeException("Usuario no encontrado");
     }
+
+    public User findById(String userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

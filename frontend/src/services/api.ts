@@ -92,5 +92,30 @@ export const api = {
     }
 
     return response.json();
+  },
+  
+  updateStudyMinutes: async (date: string, minutes: number) => {
+    console.log('Llamada a API updateStudyMinutes:', { date, minutes });
+    const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
+    if (!userId) return;
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/study-minutes?date=${date}&minutes=${minutes}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      }
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Error actualizando minutos de estudio:', error);
+      throw error;
+    }
   }
 };

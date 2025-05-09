@@ -5,4 +5,5 @@ export interface User {
   gender: string;
   workDuration: number;
   breakDuration: number;
+  studyMinutes?: { [key: string]: number };
 }
