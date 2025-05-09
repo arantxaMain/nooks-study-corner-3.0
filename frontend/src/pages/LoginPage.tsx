@@ -79,7 +79,7 @@ export default function LoginPage() {
                   setErrors(prev => ({ ...prev, email: '' }));
                 }
               }}
-              placeholder="m@example.com"
+              placeholder="canela@nook.com"
               required
             />
             {errors.email && <span className="error-message">{errors.email}</span>}
@@ -97,7 +97,7 @@ export default function LoginPage() {
                   setErrors(prev => ({ ...prev, password: '' }));
                 }
               }}
-              placeholder="Tu contraseña"
+              placeholder="********"
               required
             />
             {errors.password && <span className="error-message">{errors.password}</span>}

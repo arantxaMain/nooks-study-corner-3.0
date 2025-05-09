@@ -5,13 +5,12 @@ import Swal from 'sweetalert2';
 import '../styles/pages/LoginPage.css';
 
 export default function RegisterPage() {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-    gender: 'otro',
-  });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('otro');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const { register } = useAuth();
 
   const showError = (text: string) => {
@@ -31,50 +30,55 @@ export default function RegisterPage() {
   };
 
   const validateForm = () => {
-    if (!user.name.trim()) {
-      showError('El nombre es requerido');
-      return false;
+    console.log('Iniciando validación...');
+    const newErrors: Record<string, string> = {};
+
+    if (!name.trim()) {
+      newErrors.name = 'El nombre es requerido';
+    } else if (name.length < 2) {
+      newErrors.name = 'El nombre debe tener al menos 2 caracteres';
     }
-    if (user.name.length < 2) {
-      showError('El nombre debe tener al menos 2 caracteres');
-      return false;
+
+    if (!email.trim()) {
+      newErrors.email = 'El email es requerido';
+    } else if (!email.includes('@')) {
+      newErrors.email = 'Por favor, introduce un email válido';
     }
-    if (!user.email.trim()) {
-      showError('El email es requerido');
-      return false;
+
+    if (!password) {
+      newErrors.password = 'La contraseña es requerida';
+    } else if (password.length < 6) {
+      newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
     }
-    if (!user.email.includes('@')) {
-      showError('Por favor, introduce un email válido');
-      return false;
-    }
-    if (!user.password) {
-      showError('La contraseña es requerida');
-      return false;
-    }
-    if (user.password.length < 6) {
-      showError('La contraseña debe tener al menos 6 caracteres');
-      return false;
-    }
+
     if (!confirmPassword) {
-      showError('Por favor, confirma tu contraseña');
-      return false;
+      newErrors.confirmPassword = 'Por favor, confirma tu contraseña';
+    } else if (password !== confirmPassword) {
+      newErrors.confirmPassword = 'Las contraseñas no coinciden';
     }
-    if (user.password !== confirmPassword) {
-      showError('Las contraseñas no coinciden');
-      return false;
-    }
-    return true;
+
+    console.log('Errores encontrados:', newErrors);
+    setErrors(newErrors);
+    const isValid = Object.keys(newErrors).length === 0;
+    console.log('¿El formulario es válido?', isValid);
+    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Iniciando envío del formulario...');
 
-    if (!validateForm()) {
+    const isValid = validateForm();
+    console.log('Resultado de la validación:', isValid);
+
+    if (!isValid) {
+      console.log('Formulario inválido, deteniendo envío');
       return;
     }
 
     try {
-      await register(user.name, user.email, user.password, user.gender);
+      console.log('Intentando registrar usuario...');
+      await register(name, email, password, gender);
       Swal.fire({
         title: '¡Bienvenido!',
         text: 'Registro completado correctamente',
@@ -92,7 +96,7 @@ export default function RegisterPage() {
       console.error('Error durante el registro:', error);
       showError('Error al registrarse. Por favor, inténtalo de nuevo.');
     }
-};
+  };
 
   return (
     <div className="login-container">
@@ -108,11 +112,17 @@ export default function RegisterPage() {
             <input
               id="name"
               type="text"
-              value={user.name}
-              onChange={(e) => setUser({...user, name: e.target.value})}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (errors.name) {
+                  setErrors(prev => ({ ...prev, name: '' }));
+                }
+              }}
               placeholder="Canela"
               required
             />
+            {errors.name && <span className="error-message">{errors.name}</span>}
           </div>
 
           <div className="login-input-group">
@@ -120,11 +130,17 @@ export default function RegisterPage() {
             <input
               id="email"
               type="email"
-              value={user.email}
-              onChange={(e) => setUser({...user, email: e.target.value})}
-              placeholder="m@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errors.email) {
+                  setErrors(prev => ({ ...prev, email: '' }));
+                }
+              }}
+              placeholder="canela@nook.com"
               required
             />
+            {errors.email && <span className="error-message">{errors.email}</span>}
           </div>
 
           <div className="login-input-group">
@@ -132,11 +148,17 @@ export default function RegisterPage() {
             <input
               id="password"
               type="password"
-              value={user.password}
-              onChange={(e) => setUser({...user, password: e.target.value})}
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password) {
+                  setErrors(prev => ({ ...prev, password: '' }));
+                }
+              }}
               placeholder="********"
               required
             />
+            {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
           <div className="login-input-group">
@@ -145,18 +167,24 @@ export default function RegisterPage() {
               id="confirm-password"
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                if (errors.confirmPassword) {
+                  setErrors(prev => ({ ...prev, confirmPassword: '' }));
+                }
+              }}
               placeholder="********"
               required
             />
+            {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
           </div>
 
           <div className="login-input-group select-group">
             <label htmlFor='gender'>Género</label>
             <select 
               id='gender' 
-              value={user.gender}
-              onChange={(e) => setUser({...user, gender: e.target.value})}
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
               required
             >
               <option value='otro'>Otro</option>

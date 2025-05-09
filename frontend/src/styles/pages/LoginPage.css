@@ -71,7 +71,7 @@
   padding: 0.875rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: var(--button-bg);
+  background-color: var(--card-bg);
   color: var(--text-color);
   transition: var(--transition-base);
   appearance: none;
@@ -86,6 +86,11 @@
   border-color: var(--component);
   box-shadow: 0 0 0 2px var(--hover-bg);
   outline: none;
+}
+
+.login-input-group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px var(--bg-color) inset !important;
+  -webkit-text-fill-color: var(--text-color) !important;
 }
 
 .select-group {
@@ -168,16 +173,12 @@
   background-color: var(--accent) !important;
 }
 
-.swal2-icon.swal2-success {
-  border-color: var(--component) !important;
-}
-
-.swal2-icon.swal2-success .swal2-success-ring {
-  border-color: var(--component) !important;
+.swal2-icon.swal2-success, .swal2-success-ring {
+  border-color: var(--matcha) !important;
 }
 
 .swal2-icon.swal2-success [class^='swal2-success-line'] {
-  background-color: var(--component) !important;
+  background-color: var(--matcha) !important;
 }
 
 .swal-custom-title {
