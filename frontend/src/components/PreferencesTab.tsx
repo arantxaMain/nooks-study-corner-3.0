@@ -147,8 +147,29 @@ const PreferencesTab = () => {
                 cancelButton: 'swal-custom-confirm' 
             }
         }).then((result) => {
-            if (result.isConfirmed) {
-                // Aquí irá la lógica para eliminar la cuenta
+            if (result.isConfirmed && user?.id) {
+                api.deleteUser(user.id)
+                    .then(() => {
+                        localStorage.removeItem('user');
+                        setUser(null);
+                        window.location.href = '/'; // Redirigir después de eliminar
+                    })
+                    .catch((error) => {
+                        console.error('Error al eliminar la cuenta:', error);
+                        Swal.fire({
+                            title: '¡Error!',
+                            text: 'No se pudo eliminar la cuenta. Por favor, inténtalo de nuevo.',
+                            icon: 'error',
+                            confirmButtonText: 'Entendido',
+                            confirmButtonColor: '#88c9bf',
+                            background: '#fff5e6',
+                            customClass: {
+                                popup: 'swal-custom-popup',
+                                title: 'swal-custom-title',
+                                confirmButton: 'swal-custom-confirm'
+                            }
+                        });
+                    });
             }
         });
     };

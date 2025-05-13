@@ -22,6 +22,7 @@ interface UpdateUserRequest {
   breakDuration?: number;
 }
 
+
 export const api = {
   async register({ name, email, password, gender }: RegisterRequest) {
     const bodyData = { 
@@ -92,6 +93,22 @@ export const api = {
 
     return response.json();
   },
+
+  async deleteUser(userId: string) {
+    const response = await fetch(`${API_BASE_URL}/auth/delete/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error al eliminar el usuario: ${errorData}`);
+    }
+
+    return true;
+},
   
   updateStudyMinutes: async (date: string, minutes: number) => {
     console.log('Llamada a API updateStudyMinutes:', { date, minutes });

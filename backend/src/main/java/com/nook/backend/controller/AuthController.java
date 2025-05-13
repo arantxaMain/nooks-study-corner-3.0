@@ -57,6 +57,19 @@ public class AuthController {
         }
     }
 
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String userId) {
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al eliminar el usuario");
+        }
+    }
+
     @PutMapping("/users/{userId}/study-minutes")
     public ResponseEntity<User> updateStudyMinutes(
             @PathVariable String userId,
