@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
@@ -29,4 +30,10 @@ public class User {
     public void setStudyMinutes(Map<String, Integer> studyMinutes) {
         this.studyMinutes = studyMinutes;
     }
+
+    @Transient
+    private String currentPassword;
+    
+    @Transient
+    private String newPassword;
 }

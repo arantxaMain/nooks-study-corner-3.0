@@ -21,8 +21,7 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-        String mail = user.getEmail();
-        Optional<User> existingUser = userRepository.findByEmail(mail);
+        Optional<User> existingUser = userRepository.findById(user.getId());
         if (existingUser.isPresent()) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
@@ -48,11 +47,23 @@ public class UserService {
     }
 
     public User updateUser(User updatedUser) {
-        Optional<User> existingUser = userRepository.findByEmail(updatedUser.getEmail());
+        Optional<User> existingUser = userRepository.findById(updatedUser.getId());
         if (existingUser.isPresent()) {
             User user = existingUser.get();
+            
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            
+            if (updatedUser.getNewPassword() != null && !updatedUser.getNewPassword().isEmpty()) {
+                if (!passwordEncoder.matches(updatedUser.getCurrentPassword(), user.getPassword())) {
+                    throw new RuntimeException("La contraseña actual es incorrecta");
+                }
+                user.setPassword(passwordEncoder.encode(updatedUser.getNewPassword()));
+            }
+            
             user.setWorkDuration(updatedUser.getWorkDuration());
             user.setBreakDuration(updatedUser.getBreakDuration());
+            
             return userRepository.save(user);
         }
         throw new RuntimeException("Usuario no encontrado");

@@ -31,11 +31,15 @@
     opacity: 0.5;
 }
 
+.error-message {
+    color: #A7442A;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
+}
+
 .input-group {
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    margin-bottom: 16px;
 }
 
 .input-group label {
@@ -125,7 +129,6 @@
     color: var(--component) !important;
 }
 
-/* Asegurarse que el signo de exclamación dentro del icono también tenga el color correcto */
 .swal2-icon.swal2-warning .swal2-icon-content {
     color: var(--component) !important;
 }

@@ -8,13 +8,52 @@ const PreferencesTab = () => {
     const { user, setUser } = useAuth();
     const [formData, setFormData] = useState({
         name: user?.name,
-        email: user?.email,
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
         studyTime: user?.workDuration ? user.workDuration / 60 : 25,
         breakTime: user?.breakDuration ? user.breakDuration / 60 : 5
     });
+
+    const [errors, setErrors] = useState({
+        name: '',
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
+
+    const validateForm = () => {
+        const newErrors = {
+            name: '',
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+        };
+
+        if (!formData.name?.trim()) {
+            newErrors.name = 'El nombre es requerido';
+        }
+
+        if (formData.newPassword || formData.confirmPassword) {
+            if (!formData.currentPassword) {
+                newErrors.currentPassword = 'La contraseña actual es requerida';
+            }
+            if (!formData.newPassword) {
+                newErrors.newPassword = 'La nueva contraseña es requerida';
+            } else if (formData.newPassword.length < 6) {
+                newErrors.newPassword = 'La contraseña debe tener al menos 6 caracteres';
+            }
+            if (!formData.confirmPassword) {
+                newErrors.confirmPassword = 'Confirma la nueva contraseña';
+            }
+            if (formData.newPassword !== formData.confirmPassword) {
+                newErrors.confirmPassword = 'Las contraseñas no coinciden';
+            }
+        }
+
+        setErrors(newErrors);
+        return !Object.values(newErrors).some(error => error !== '');
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -26,16 +65,39 @@ const PreferencesTab = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!validateForm()) {
+            return;
+        }
+
         const updatedUser = {
             ...user,
+            name: formData.name,
+            currentPassword: formData.currentPassword || undefined,
+            newPassword: formData.newPassword || undefined,
             workDuration: Number(formData.studyTime) * 60,
             breakDuration: Number(formData.breakTime) * 60
         };
 
         try {
             const data = await api.updateUser(updatedUser);
+            console.log('Respuesta del servidor:', data);
             localStorage.setItem('user', JSON.stringify(data));
             setUser(data);
+            
+            setFormData(prev => ({
+                ...prev,
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: ''
+            }));
+            setErrors({
+                name: '',
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: ''
+            });
+
             Swal.fire({
                 title: '¡Éxito!',
                 text: 'Preferencias actualizadas correctamente',
@@ -122,10 +184,10 @@ const PreferencesTab = () => {
                     </div>
                 </div>
 
-                <div className="preferences-separator"></div>
+                <div className="preferences-separator"></div>                   
 
                 <div className="form-group">
-                    <h4>Información Personal</h4>
+                    <h4>Información personal</h4>
                     <div className="input-group">
                         <label>Nombre:</label>
                         <input
@@ -134,20 +196,8 @@ const PreferencesTab = () => {
                             value={formData.name}
                             onChange={handleInputChange}
                         />
+                        {errors.name && <span className="error-message">{errors.name}</span>}
                     </div>
-                    <div className="input-group">
-                        <label>Correo Electrónico:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                </div>
-
-                <div className="form-group">
-                    <h4>Cambiar Contraseña</h4>
                     <div className="input-group">
                         <label>Contraseña Actual:</label>
                         <input
@@ -156,6 +206,7 @@ const PreferencesTab = () => {
                             value={formData.currentPassword}
                             onChange={handleInputChange}
                         />
+                        {errors.currentPassword && <span className="error-message">{errors.currentPassword}</span>}
                     </div>
                     <div className="input-group">
                         <label>Nueva Contraseña:</label>
@@ -165,6 +216,7 @@ const PreferencesTab = () => {
                             value={formData.newPassword}
                             onChange={handleInputChange}
                         />
+                        {errors.newPassword && <span className="error-message">{errors.newPassword}</span>}
                     </div>
                     <div className="input-group">
                         <label>Confirmar Nueva Contraseña:</label>
@@ -174,6 +226,7 @@ const PreferencesTab = () => {
                             value={formData.confirmPassword}
                             onChange={handleInputChange}
                         />
+                        {errors.confirmPassword && <span className="error-message">{errors.confirmPassword}</span>}
                     </div>
                 </div>
 

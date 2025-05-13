@@ -45,6 +45,9 @@ public class AuthController {
     public ResponseEntity<Object> updateUser(@RequestBody User user) {
         try {
             User updatedUser = userService.updateUser(user);
+            updatedUser.setPassword(null);
+            updatedUser.setCurrentPassword(null);
+            updatedUser.setNewPassword(null);
             return ResponseEntity.ok(updatedUser);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
