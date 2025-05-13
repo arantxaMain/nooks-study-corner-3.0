@@ -40,12 +40,16 @@
 
 .input-group {
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-group label {
     color: var(--text-color);
     font-weight: 500;
     font-size: 0.9rem;
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 .input-group input {
