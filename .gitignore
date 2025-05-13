@@ -1,7 +1,7 @@
 # MongoDB
 db/data/
 backend/data/db/
-db/log/
+db/log/mongod.log
 
 backend/data/db/*
 !backend/data/db/.gitkeep
