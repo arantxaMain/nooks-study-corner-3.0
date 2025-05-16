@@ -1,11 +1,26 @@
 .pomodoro-container {
-  margin-top: 8em;
+  margin-top: 10vh;
   padding: 2rem;
-  background: var(--glass-bg);
+  background: var(--card-bg);
   backdrop-filter: blur(8px);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  transition: var(--transition-smooth);
+  width: min(90%, 450px);
+  min-height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pomodoro-time-text {
+  font-family: 'Questrial', sans-serif;
+  font-size: clamp(4rem, 10vw, 6rem);
+  color: var(--component);
+  margin: 0.75rem 0;
+  text-align: center;
 }
 
 .pomodoro-reset {
@@ -14,6 +29,7 @@
   padding: 0.5rem;
   border-radius: 50%;
   transition: var(--transition-smooth);
+  margin: 0.25rem;
 }
 
 .pomodoro-reset:hover {
@@ -21,19 +37,18 @@
   transform: rotate(180deg);
 }
 
-.pomodoro-time-text {
-  margin: 0 auto;
-  font-family: 'Sour Gummy', sans-serif;
-  font-size: 8rem;
+.pomodoro-control-icon {
+  font-size: clamp(3rem, 8vw, 4rem);
   color: var(--component);
-  text-shadow: 2px 2px 4px var(--shadow-color);
   transition: var(--transition-smooth);
+  margin: 0 0.75rem;
 }
 
-.pomodoro-control-icon {
-  font-size: 5rem;
-  color: var(--component);
-  transition: var(--transition-smooth);
+.pomodoro-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .pomodoro-controls button:hover .pomodoro-control-icon {
@@ -43,18 +58,23 @@
 
 .pomodoro-controls button {
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.5rem;
 }
 
 .pomodoro-status {
   text-align: center;
-  font-size: 1.125rem;
-  color: #747474;
-  margin-top: 1em;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  color: var(--text-color);
+  opacity: 0.8;
+  padding: 0.5rem;
 }
 
 .pomodoro-status p {
-  margin: 0 auto;
+  margin: 0.25rem auto;
   width: fit-content;
+  line-height: 1.4;
 }
 
 .fade-in-delayed {

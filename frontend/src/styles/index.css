@@ -1,6 +1,6 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Questrial', sans-serif;
+  line-height: 1.6;
   font-weight: 400;
 
   font-synthesis: none;
@@ -30,41 +30,150 @@
 
 :root[data-theme="light"] {
   --text-color: var(--carob);
-  --bg-color: var(--almond);
+  --bg-color: #ffffff;
   --link-color: var(--matcha);
   --link-hover-color: var(--chai);
   --footer-text-color: var(--neutral);
-  --button-bg: var(--vanilla);
-  --component: var(--carob);
-  --component-alt: var(--chai);
+  --button-bg: var(--almond);
+  --component: var(--matcha);
+  --component-alt: var(--pistache);
   --accent-color: var(--accent);
-  --border-color: var(--neutral);
-  --card-bg: rgba(255, 255, 255, 0.7);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.9);
   --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
 :root[data-theme="dark"] {
-  --text-color: var(--matcha);
-  --bg-color: #1e1e1e;
+  --text-color: var(--almond);
+  --bg-color: #121212;
   --link-color: var(--pistache);
   --link-hover-color: var(--almond);
   --footer-text-color: var(--pistache);
-  --button-bg: #2f2f2f;
+  --button-bg: #2a2a2a;
   --component: var(--matcha);
   --component-alt: var(--pistache);
   --accent-color: var(--accent);
-  --border-color: var(--neutral);
-  --card-bg: rgba(47, 47, 47, 0.7);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(42, 42, 42, 0.9);
+  --hover-bg: rgba(128, 150, 113, 0.1);
+
+
+/* Actualizando las variables de diseño */
+--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+--transition-base: all 0.2s ease;
+--transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+--glass-light: rgba(255, 255, 255, 0.8);
+--glass-dark: rgba(30, 30, 30, 0.8);
+
+/* Nuevos espaciados consistentes */
+--spacing-xs: 0.25rem;
+--spacing-sm: 0.5rem;
+--spacing-md: 1rem;
+--spacing-lg: 1.5rem;
+--spacing-xl: 2rem;
+
+/* Nuevos radios de borde consistentes */
+--radius-sm: 0.25rem;
+--radius-md: 0.5rem;
+--radius-lg: 1rem;
+--radius-full: 9999px;
+}
+
+/* Actualizar los estilos del tema claro */
+:root[data-theme="light"] {
+  --text-color: var(--carob);
+  --bg-color: #ffffff;
+  --link-color: var(--matcha);
+  --link-hover-color: var(--chai);
+  --footer-text-color: var(--neutral);
+  --button-bg: var(--almond);
+  --component: var(--matcha);
+  --component-alt: var(--pistache);
+  --accent-color: var(--accent);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.9);
   --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
+/* Actualizar los estilos del tema oscuro */
+:root[data-theme="dark"] {
+  --text-color: var(--almond);
+  --bg-color: #121212;
+  --link-color: var(--pistache);
+  --link-hover-color: var(--almond);
+  --footer-text-color: var(--pistache);
+  --button-bg: #2a2a2a;
+  --component: var(--matcha);
+  --component-alt: var(--pistache);
+  --accent-color: var(--accent);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(42, 42, 42, 0.8);
+  --hover-bg: rgba(128, 150, 113, 0.1);
+}
+
+/* Estilos base actualizados */
 body {
   margin: 0;
-  display: block;
   min-width: 320px;
-  overflow-x: hidden;
+  min-height: 100vh;
   color: var(--text-color);
   background-color: var(--bg-color);
+  font-size: 16px;
+  /* line-height: 1.6; */
+}
+
+/* Actualizar estilos de header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+}
+
+/* Actualizar estilos del footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .header, .footer {
+    height: 3.5rem;
+    padding: var(--spacing-sm);
+  }
+  
+  .logo {
+    height: 2.5rem;
+  }
 }
 
 .material-symbols-rounded {
