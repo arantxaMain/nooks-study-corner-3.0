@@ -69,7 +69,7 @@ export default function BackgroundMusic() {
         <source src={music} type="audio/mpeg" />
       </audio>
 
-      {isHomePage ?
+    {isHomePage ?
         <div className="audio-controls">
           <button onClick={toggleMute} className="audio-button">
             <span className="material-symbols-rounded audio-icon">
