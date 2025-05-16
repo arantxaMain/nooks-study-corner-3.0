@@ -17,7 +17,7 @@
   transform-origin: center;
   transform: translate(-50%, -50%);
   transition: transform 1s linear;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px dashed var(--component);
   border-radius: 50%;
 }
 
@@ -29,17 +29,20 @@
 
 .sun, .moon {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
 
 .sun {
   background: #FFD93D;
-  box-shadow: 0 0 30px rgba(255, 217, 61, 0.4);
-  left: -20px;
-  top: calc(50% - 20px);
+  /* Ajustamos la sombra para que sea más visible en tema claro */
+  box-shadow: 0 0 50px rgba(255, 217, 61, 0.8), 0 0 100px rgba(255, 165, 0, 0.4);
+  /* Añadimos un borde sutil */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  left: -25px;
+  top: calc(50% - 25px);
 }
 
 .sun::before {
@@ -53,9 +56,10 @@
 
 .moon {
   background: #E8E8E8;
-  box-shadow: 0 0 20px rgba(232, 232, 232, 0.4);
-  right: -20px;
-  top: calc(50% - 20px);
+  /* Ajustamos la sombra para que sea más visible en tema claro */
+  box-shadow: 0 0 40px rgba(232, 232, 232, 0.8), 0 0 80px rgba(255, 255, 255, 0.5);
+  right: -25px;
+  top: calc(50% - 25px);
 }
 
 .moon::before {

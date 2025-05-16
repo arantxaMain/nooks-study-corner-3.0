@@ -55,6 +55,8 @@
   --border-color: rgba(0, 0, 0, 0.1);
   --card-bg: #ffffff;
   --hover-bg: rgba(128, 150, 113, 0.1);
+  /* Nuevo gradiente para tema claro */
+  --bg-gradient: linear-gradient(180deg, #ffffff 0%, var(--almond) 100%);
 }
 
 /* Tema oscuro */
@@ -71,6 +73,8 @@
   --border-color: rgba(255, 255, 255, 0.1);
   --card-bg: #2a2a2a;
   --hover-bg: rgba(128, 150, 113, 0.1);
+  /* Nuevo gradiente para tema oscuro */
+  --bg-gradient: linear-gradient(180deg, #121212 0%, #2a2a2a 100%);
 }
 
 /* Estilos base */
@@ -79,9 +83,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   color: var(--text-color);
-  background-color: var(--bg-color);
+  background: var(--bg-gradient); 
   font-size: 16px;
   overflow-x: hidden;
+  transition: background 0.5s ease; 
 }
 
 /* Header y Footer compartidos */
