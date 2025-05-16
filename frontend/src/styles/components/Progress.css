@@ -3,9 +3,9 @@
   bottom: 0;
   left: 0;
   right: 0;
-  margin-bottom: 5em;
+  margin-bottom: 4.6em;
   height: 0.2rem;
-  width: 100%; /* Cambiado de 101% a 100% */
+  width: 100%;
   overflow: hidden;
   background: var(--glass-bg);
   backdrop-filter: blur(4px);

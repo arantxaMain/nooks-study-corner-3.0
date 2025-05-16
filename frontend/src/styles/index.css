@@ -19,15 +19,29 @@
   --neutral: #888888;
 
   /* effects and shadows */
-  --shadow-sm: 0 2px 8px rgba(114, 92, 58, 0.05);
-  --shadow-md: 0 4px 12px rgba(114, 92, 58, 0.08);
-  --shadow-lg: 0 8px 24px rgba(114, 92, 58, 0.12);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
   --transition-base: all 0.2s ease;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --glass-light: rgba(229, 224, 216, 0.8);
+  --glass-light: rgba(255, 255, 255, 0.8);
   --glass-dark: rgba(30, 30, 30, 0.8);
+
+  /* spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
 }
 
+/* Tema claro */
 :root[data-theme="light"] {
   --text-color: var(--carob);
   --bg-color: #ffffff;
@@ -39,10 +53,11 @@
   --component-alt: var(--pistache);
   --accent-color: var(--accent);
   --border-color: rgba(0, 0, 0, 0.1);
-  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: #ffffff;
   --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
+/* Tema oscuro */
 :root[data-theme="dark"] {
   --text-color: var(--almond);
   --bg-color: #121212;
@@ -54,66 +69,11 @@
   --component-alt: var(--pistache);
   --accent-color: var(--accent);
   --border-color: rgba(255, 255, 255, 0.1);
-  --card-bg: rgba(42, 42, 42, 0.9);
-  --hover-bg: rgba(128, 150, 113, 0.1);
-
-
-/* Actualizando las variables de diseño */
---shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
---shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
---shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
---transition-base: all 0.2s ease;
---transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
---glass-light: rgba(255, 255, 255, 0.8);
---glass-dark: rgba(30, 30, 30, 0.8);
-
-/* Nuevos espaciados consistentes */
---spacing-xs: 0.25rem;
---spacing-sm: 0.5rem;
---spacing-md: 1rem;
---spacing-lg: 1.5rem;
---spacing-xl: 2rem;
-
-/* Nuevos radios de borde consistentes */
---radius-sm: 0.25rem;
---radius-md: 0.5rem;
---radius-lg: 1rem;
---radius-full: 9999px;
-}
-
-/* Actualizar los estilos del tema claro */
-:root[data-theme="light"] {
-  --text-color: var(--carob);
-  --bg-color: #ffffff;
-  --link-color: var(--matcha);
-  --link-hover-color: var(--chai);
-  --footer-text-color: var(--neutral);
-  --button-bg: var(--almond);
-  --component: var(--matcha);
-  --component-alt: var(--pistache);
-  --accent-color: var(--accent);
-  --border-color: rgba(0, 0, 0, 0.1);
-  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: #2a2a2a;
   --hover-bg: rgba(128, 150, 113, 0.1);
 }
 
-/* Actualizar los estilos del tema oscuro */
-:root[data-theme="dark"] {
-  --text-color: var(--almond);
-  --bg-color: #121212;
-  --link-color: var(--pistache);
-  --link-hover-color: var(--almond);
-  --footer-text-color: var(--pistache);
-  --button-bg: #2a2a2a;
-  --component: var(--matcha);
-  --component-alt: var(--pistache);
-  --accent-color: var(--accent);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --card-bg: rgba(42, 42, 42, 0.8);
-  --hover-bg: rgba(128, 150, 113, 0.1);
-}
-
-/* Estilos base actualizados */
+/* Estilos base */
 body {
   margin: 0;
   min-width: 320px;
@@ -124,185 +84,55 @@ body {
   overflow-x: hidden;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4rem;
-  padding: var(--spacing-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-sm);
-  z-index: 1000;
-}
-
+/* Header y Footer compartidos */
+.header,
 .footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4rem;
-  padding: var(--spacing-md);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: var(--shadow-sm);
-  z-index: 1000;
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  }
-  
-  .header, .footer {
-    height: 3.5rem;
-    padding: var(--spacing-sm);
-  }
-  
-  .logo {
-    height: 2.5rem;
-  }
-}
-
-.material-symbols-rounded {
-  display: inline-block;
-  line-height: 1;
-  vertical-align: middle;
-  font-family: 'Material Symbols Rounded';
-  font-style: normal;
-  font-weight: normal;
-  text-transform: none;
-  white-space: nowrap;
-  direction: ltr;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' -25,
-    'opsz' 48;
-}
-
-.header {
-  position: fixed;
-  top: 0;
   left: 0;
   right: 0;
   height: 4.5rem;
   padding: 0 var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--card-bg);
-  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+}
+
+.header {
+  top: 0;
   border-bottom: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  z-index: 1000;
 }
 
 .footer {
-  position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4.5rem;
-  padding: 0 var(--spacing-lg);
-  background: var(--card-bg);
-  backdrop-filter: var(--glass-blur);
   border-top: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-  z-index: 1000;
+}
+
+/* Enlaces del header */
+.header h1 a,
+.header a {
+  color: var(--text-color);
+  transition: var(--transition-smooth);
 }
 
 .header h1 a {
   font-size: 1.3em;
-  color: var(--text-color);
-  transition: var(--transition-smooth);
-}
-
-.header h1 a:hover {
-  color: var(--link-hover-color);
-  transform: scale(1.05);
 }
 
 .header a {
   font-size: 3em;
-  color: var(--text-color);
-  transition: var(--transition-smooth);
 }
 
+.header h1 a:hover,
 .header a:hover {
   color: var(--link-hover-color);
   transform: scale(1.05);
 }
 
-.material-symbols-rounded {
-  display: inline-block;
-  line-height: 1;
-  vertical-align: middle;
-  font-family: 'Material Symbols Rounded';
-  font-style: normal;
-  font-weight: normal;
-  text-transform: none;
-  white-space: nowrap;
-  direction: ltr;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 300,
-    'GRAD' -25,
-    'opsz' 48;
-}
-
-button {
-  background: var(--button-bg);
-  border: none;
-  cursor: pointer;
-  outline: none;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: var(--transition-smooth);
-}
-
-button:hover {
-  background: var(--hover-bg);
-  transform: translateY(-1px);
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  height: 5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  background: var(--card-bg);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-smooth);
-}
-
-.footer-text {
-  font-size: smaller;
-  color: var(--footer-text-color);
-}
-
-a {
-  font-weight: 500;
-  color: var(--link-color);
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: var(--link-hover-color);
-}
-
+/* Botones */
 button {
   background: var(--button-bg);
   border: none;
@@ -311,7 +141,7 @@ button {
   border-radius: var(--radius-md);
   color: var(--text-color);
   font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
 }
@@ -326,11 +156,42 @@ button:active {
   transform: translateY(0);
 }
 
+/* Iconos Material */
+.material-symbols-rounded {
+  display: inline-block;
+  line-height: 1;
+  vertical-align: middle;
+  font-family: 'Material Symbols Rounded';
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' -25,
+    'opsz' 48;
+}
+
+/* Enlaces generales */
+a {
+  font-weight: 500;
+  color: var(--link-color);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+/* Texto del footer */
 .footer-text {
   font-size: smaller;
   color: var(--footer-text-color);
 }
 
+/* Encabezados */
 h1 {
   font-size: 1.5em;
   line-height: 0;
@@ -338,16 +199,27 @@ h1 {
   letter-spacing: -0.02em;
 }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  outline: none;
+/* Logo */
+.logo {
+  height: 6em;
+  width: auto;
+  position: relative;
+  top: 30px;
 }
 
-.logo {
-    height: 6em;
-    width: auto;
-    position: relative;
-    top: 30px;
+/* Media queries */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  
+  .header,
+  .footer {
+    height: 3.5rem;
+    padding: var(--spacing-sm);
+  }
+  
+  .logo {
+    height: 2.5rem;
+  }
 }
