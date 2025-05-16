@@ -7,56 +7,82 @@
   text-align: center;
 }
 
-.controls {
+.audio-controls {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: var(--shadow-md);
 }
 
-.mute-button {
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 200px;
   background: var(--button-bg);
-  border: none;
-  cursor: pointer;
-  color: var(--component);
-  padding: 0.75rem;
-  border-radius: 50%;
-  transition: var(--transition-smooth);
-}
-
-.mute-button:hover {
-  transform: scale(1.1);
-  background: var(--hover-bg);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
 }
 
 .volume-slider {
-  width: 100px;
+  -webkit-appearance: none;
+  width: 120px;
   height: 4px;
-  border-radius: 2px;
+  border-radius: var(--radius-full);
+  background: var(--component);
+  opacity: 0.8;
+  transition: var(--transition-smooth);
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
   background: var(--component-alt);
-  outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  cursor: pointer;
+  border: 2px solid var(--bg-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  background: var(--component);
 }
 
 .volume-slider:hover {
   opacity: 1;
 }
 
-.volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.audio-button {
   background: var(--component);
+  border: none;
   cursor: pointer;
+  color: var(--bg-color);
+  padding: 0.75rem;
+  border-radius: 50%;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
 }
 
-.volume-slider::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--component);
-  cursor: pointer;
-  border: none;
+.audio-button:hover {
+  transform: scale(1.1);
+  background: var(--component-alt);
+  box-shadow: var(--shadow-md);
+}
+
+.audio-button:active {
+  transform: scale(0.95);
+}
+
+.audio-icon {
+  font-size: 1.5rem;
+  transition: var(--transition-smooth);
 }

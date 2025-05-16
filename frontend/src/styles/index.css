@@ -195,16 +195,27 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 5em;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-sizing: border-box;
-  backdrop-filter: blur(8px);
+  height: 4.5rem;
+  padding: 0 var(--spacing-lg);
   background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition-smooth);
+  z-index: 1000;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4.5rem;
+  padding: 0 var(--spacing-lg);
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
 }
 
 .header h1 a {
@@ -296,7 +307,23 @@ button {
   background: var(--button-bg);
   border: none;
   cursor: pointer;
-  outline: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  color: var(--text-color);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  background: var(--hover-bg);
+  box-shadow: var(--shadow-md);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 .footer-text {
