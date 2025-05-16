@@ -21,8 +21,7 @@ public class UserService {
     }
 
     public User saveUser(User user) {
-        Optional<User> existingUser = userRepository.findById(user.getId());
-        if (existingUser.isPresent()) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
 
