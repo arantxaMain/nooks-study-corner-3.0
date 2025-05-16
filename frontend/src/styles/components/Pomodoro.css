@@ -1,5 +1,5 @@
 .pomodoro-container {
-  margin-top: 10vh;
+  margin-top: 25vh;
   padding: 2rem;
   background: var(--card-bg);
   backdrop-filter: blur(8px);
