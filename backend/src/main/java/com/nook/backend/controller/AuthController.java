@@ -84,6 +84,12 @@ public class AuthController {
         User updatedUser = userService.save(user);
         return ResponseEntity.ok(updatedUser);
     }
+
+    @GetMapping("/users/{userId}/study-minutes/last-30-days")
+    public ResponseEntity<Map<String, Integer>> getStudyMinutesLast30Days(@PathVariable String userId) {
+        Map<String, Integer> studyMinutes = userService.getStudyMinutesLast30Days(userId);
+        return ResponseEntity.ok(studyMinutes);
+    }
 }
 
 record LoginRequest(String email, String password) {

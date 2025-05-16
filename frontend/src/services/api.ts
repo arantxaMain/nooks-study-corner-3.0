@@ -25,16 +25,16 @@ interface UpdateUserRequest {
 
 export const api = {
   async register({ name, email, password, gender }: RegisterRequest) {
-    const bodyData = { 
-      name, 
-      email, 
-      password, 
+    const bodyData = {
+      name,
+      email,
+      password,
       gender,
       workDuration: 1500,
       breakDuration: 300
     };
     console.log('Datos enviados al registro:', bodyData);
-    
+
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -44,7 +44,7 @@ export const api = {
     });
 
     console.log('Respuesta del servidor:', response);
-    
+
     if (!response.ok) {
       const errorData = await response.text();
       console.error('Error detallado:', errorData);
@@ -54,12 +54,12 @@ export const api = {
     const data = await response.json();
     console.log('Datos recibidos:', data);
     return data;
-},
+  },
 
   async login({ email, password }: LoginRequest) {
     const bodyData = { email, password };
     console.log('Datos enviados al login:', bodyData);
-    
+
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
@@ -75,7 +75,7 @@ export const api = {
     }
 
     return response.json();
-},
+  },
 
   async updateUser(updatedUser: UpdateUserRequest) {
     const response = await fetch(`${API_BASE_URL}/auth/update`, {
@@ -108,13 +108,13 @@ export const api = {
     }
 
     return true;
-},
-  
+  },
+
   updateStudyMinutes: async (date: string, minutes: number) => {
     console.log('Llamada a API updateStudyMinutes:', { date, minutes });
     const userId = JSON.parse(localStorage.getItem('user') || '{}').id;
     if (!userId) return;
-    
+
     try {
       const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/study-minutes?date=${date}&minutes=${minutes}`, {
         method: 'PUT',
@@ -123,15 +123,32 @@ export const api = {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
-      
+
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
-      
+
       return await response.json();
     } catch (error) {
       console.error('Error actualizando minutos de estudio:', error);
       throw error;
     }
+  },
+
+  async getStudyMinutesLast30Days(userId: string) {
+    const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/study-minutes/last-30-days`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`Error al obtener los minutos de estudio: ${errorData}`);
+    }
+
+    return response.json();
   }
-};
+}

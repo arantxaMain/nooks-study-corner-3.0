@@ -8,7 +8,8 @@ import StatsTab from '../components/StatsTab';
 
 export default function UserPage() {
     const { user, logout } = useAuth();
-    const [activeTab, setActiveTab] = useState('preferences');
+    console.log(user);
+    const [activeTab, setActiveTab] = useState('stats');
     const { theme } = useTheme();
     
     return (
