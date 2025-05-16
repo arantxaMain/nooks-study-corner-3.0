@@ -8,6 +8,7 @@ import AlarmSound from './AlarmSound'
 import DayNightCycle from './DayNightCycle';
 import '../styles/index.css';
 import { useAuth } from '../contexts/AuthProvider'
+import logo from '../assets/logo.png'
 
 type LayoutProps = {
     children: ReactNode
@@ -32,7 +33,9 @@ export default function Layout({ children }: LayoutProps) {
             <BackgroundMusic />
             <AlarmSound />
             <header className="header">
-                <h1><Link to="/">Nook's Study Corner</Link></h1>
+                <Link to="/" className="logo-link">
+                    <img src={logo} alt="Logo" className="logo" />
+                </Link>
                 {isHomePage ?
                     <Link to="/user" className="material-symbols-rounded" onClick={handleUserIconClick}>
                         account_circle

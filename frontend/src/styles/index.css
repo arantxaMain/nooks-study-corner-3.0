@@ -211,3 +211,10 @@ button {
   cursor: pointer;
   outline: none;
 }
+
+.logo {
+    height: 6em;
+    width: auto;
+    position: relative;
+    top: 30px;
+}
