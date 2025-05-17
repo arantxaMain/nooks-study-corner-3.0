@@ -1,13 +1,25 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import Heatmap from '../components/Heatmap';
+import { api } from '../services/api'; 
 
-const StatsTab: React.FC = () => {
-    return (
-        <div className="stats-container">
-            <h3>Estadísticas</h3>
-            <p>Aquí se mostrarán las estadísticas del usuario</p>
-            {/* Aquí irán las estadísticas cuando se implementen */}
-        </div>
-    );
+const StatsTab = () => {
+  const [data, setData] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!user?.id) return;
+
+    api.getStudyMinutesLast100Days(user.id)
+      .then(setData)
+      .catch(console.error);
+  }, []);
+
+  return (
+    <div>
+      <h3>Últimos 100 días</h3>
+      <Heatmap data={data} />
+    </div>
+  );
 };
 
 export default StatsTab;

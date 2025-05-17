@@ -135,20 +135,24 @@ export const api = {
     }
   },
 
-  async getStudyMinutesLast30Days(userId: string) {
-    const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/study-minutes/last-30-days`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
+  async getStudyMinutesLast100Days(userId: string | undefined) {
+      if (!userId) {
+          throw new Error('User ID is required');
       }
-    });
-
-    if (!response.ok) {
-      const errorData = await response.text();
-      throw new Error(`Error al obtener los minutos de estudio: ${errorData}`);
-    }
-
-    return response.json();
+  
+      const response = await fetch(`${API_BASE_URL}/auth/users/${userId}/study-minutes/last-100-days`, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+      });
+  
+      if (!response.ok) {
+          const errorData = await response.text();
+          throw new Error(`Error al obtener los minutos de estudio: ${errorData}`);
+      }
+  
+      return response.json();
   }
 }

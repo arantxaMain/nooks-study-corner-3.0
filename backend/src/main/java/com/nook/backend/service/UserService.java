@@ -5,15 +5,12 @@ import com.nook.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -88,22 +85,22 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public Map<String, Integer> getStudyMinutesLast30Days(String userId) {
+    public Map<String, Integer> getStudyMinutesLast100Days(String userId) {
         User user = findById(userId);
         Map<String, Integer> studyMinutes = user.getStudyMinutes();
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
-        Map<String, Integer> last30DaysMap = new LinkedHashMap<>();
+        Map<String, Integer> last100DaysMap = new LinkedHashMap<>();
     
-        for (int i = 29; i >= 0; i--) {
+        for (int i = 99; i >= 0; i--) {
             LocalDate date = today.minusDays(i);
             String formattedDate = date.format(formatter);
             int minutes = studyMinutes.getOrDefault(formattedDate, 0);
-            last30DaysMap.put(formattedDate, minutes);
+            last100DaysMap.put(formattedDate, minutes);
         }
     
-        return last30DaysMap;
+        return last100DaysMap;
     }
     
 }

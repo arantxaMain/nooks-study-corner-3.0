@@ -85,9 +85,9 @@ public class AuthController {
         return ResponseEntity.ok(updatedUser);
     }
 
-    @GetMapping("/users/{userId}/study-minutes/last-30-days")
-    public ResponseEntity<Map<String, Integer>> getStudyMinutesLast30Days(@PathVariable String userId) {
-        Map<String, Integer> studyMinutes = userService.getStudyMinutesLast30Days(userId);
+    @GetMapping("/users/{userId}/study-minutes/last-100-days")
+    public ResponseEntity<Map<String, Integer>> getStudyMinutesLast100Days(@PathVariable String userId) {
+        Map<String, Integer> studyMinutes = userService.getStudyMinutesLast100Days(userId);
         return ResponseEntity.ok(studyMinutes);
     }
 }

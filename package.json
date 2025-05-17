@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/cal-heatmap": "^3.5.39",
+    "cal-heatmap": "^4.2.4"
+  }
+}

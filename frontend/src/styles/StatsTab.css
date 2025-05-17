@@ -1,0 +1,25 @@
+.calendar-heatmap {
+    min-height: 200px;
+    margin: 20px 0;
+}
+
+.ch-tooltip {
+    padding: 8px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.cal-heatmap-subdomain.highlight {
+    stroke: #ff0000;
+    stroke-width: 2px;
+    fill-opacity: 1 !important;
+  }
+  
+  .highlight-today {
+    stroke: #ff0000;
+    stroke-width: 2px;
+    fill: #ffcccc;
+  }
+  
