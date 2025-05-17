@@ -192,8 +192,14 @@ a:hover {
 
 /* Texto del footer */
 .footer-text {
-  font-size: smaller;
+  font-size: 0.6em;
   color: var(--footer-text-color);
+  opacity: 0.3;
+  transition: var(--transition-smooth);
+}
+
+.footer-text:hover {
+  opacity: 0.8;
 }
 
 /* Encabezados */
