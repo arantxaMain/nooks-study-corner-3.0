@@ -5,6 +5,9 @@ declare module 'cal-heatmap' {
             type: string;
             gutter?: number;
             label?: {
+                text?: string;
+                textAlign?: string;
+                position?: string;
                 display?: string;
             };
         };
@@ -14,6 +17,7 @@ declare module 'cal-heatmap' {
             height?: number;
             radius?: number;
             gutter?: number;
+            label?: (timestamp: number, value: number) => string;
         };
         data?: Record<number, number> | {
             source: Array<{
@@ -29,11 +33,16 @@ declare module 'cal-heatmap' {
         scale?: {
             color: {
                 type: string;
-                range: string[];
+                range: string[] | number;
                 domain: number[];
+                scheme?: string;
             };
         };
         verticalOrientation?: boolean;
+        theme?: 'light' | 'dark';
+        options?: {
+            theme?: 'light' | 'dark';
+        };
     }
 
     class CalHeatmap {

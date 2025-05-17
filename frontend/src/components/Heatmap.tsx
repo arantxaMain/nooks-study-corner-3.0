@@ -4,7 +4,7 @@ import 'cal-heatmap/cal-heatmap.css'
 import '../styles/StatsTab.css';
 import { api } from '../services/api'
 
-export default function HeatmapLast100Days() {
+export default function HeatmapLast100Days({data}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const calInstance = useRef<CalHeatmap | null>(null)
 
@@ -18,12 +18,16 @@ export default function HeatmapLast100Days() {
 
       try {
         const rawData = await api.getStudyMinutesLast100Days(userId)
+        console.log('Datos recibidos del API:', rawData)
 
         const parsedData: Record<number, number> = {}
         Object.entries(rawData).forEach(([dateStr, value]) => {
           const timestamp = Math.floor(new Date(dateStr + 'T00:00:00').getTime() / 1000)
           parsedData[timestamp] = value as number
+          console.log(`Fecha: ${dateStr}, Timestamp: ${timestamp}, Valor: ${value}`)
         })
+
+        console.log('Datos procesados para el heatmap:', parsedData)
 
         if (!calInstance.current) {
           calInstance.current = new CalHeatmap()
@@ -41,7 +45,7 @@ export default function HeatmapLast100Days() {
                 itemSelector: containerRef.current,
                 data: parsedData,
                 date: {
-                  start: startDate,
+                  start: new Date(Date.now() - (99 * 24 * 60 * 60 * 1000)),
                   highlight: new Date(),
                 },
                 range: 4,
@@ -49,9 +53,9 @@ export default function HeatmapLast100Days() {
                 subDomain: { type: 'day', radius: 2, width: 15, height: 15 },
                 scale: {
                   color: {
-                    type: 'linear',
-                    domain: [0, 30, 60, 120],
-                    range: ['#eee', '#ffeda0', '#feb24c', '#f03b20']
+                    type: 'threshold',
+                    domain: [1, 30, 60, 120],
+                    range: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
                   }
                 }
             })
@@ -71,5 +75,9 @@ export default function HeatmapLast100Days() {
     }
   }, [])
 
-  return <div><div ref={containerRef} /></div>
+  return (
+    <div className="calendar-heatmap">
+      <div ref={containerRef} />
+    </div>
+  );
 }

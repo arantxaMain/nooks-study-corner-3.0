@@ -1,14 +1,143 @@
-.calendar-heatmap {
-    min-height: 200px;
-    margin: 20px 0;
+.ch-container {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
 }
 
+.ch-domain-text {
+    font-family: 'Questrial', sans-serif;
+    fill: var(--text-color);
+    font-size: 0.875rem;
+}
+
+.ch-subdomain-bg {
+    fill: var(--bg-color);
+    transition: all 0.2s ease;
+}
+
+.ch-subdomain-bg:hover {
+    stroke: var(--component);
+    stroke-width: 1px;
+}
+
+.ch-domain-bg {
+    fill: transparent;
+}
+
+.ch-domain-container {
+    font-family: 'Questrial', sans-serif;
+}
+
+.calendar-heatmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.stats-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Resaltado del día actual */
+.ch-subdomain-bg.highlight {
+    stroke: var(--component);
+    stroke-width: 2px;
+    fill-opacity: 1;
+}
 .ch-tooltip {
-    padding: 8px;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 12px;
+    padding: 0.75rem 1rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-color);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(8px);
+}
+
+.cal-heatmap-container {
+    margin: 0 auto;
+}
+
+.cal-heatmap-container .graph-label {
+    font-family: 'Questrial', sans-serif;
+    fill: var(--text-color);
+    font-size: 0.875rem;
+}
+
+.cal-heatmap-container .graph {
+    font-family: 'Questrial', sans-serif;
+}
+
+.cal-heatmap-container rect.highlight {
+    stroke: var(--component);
+    stroke-width: 2px;
+}
+
+.cal-heatmap-container rect.now {
+    stroke: var(--component);
+    stroke-width: 2px;
+}
+
+.cal-heatmap-container rect:hover {
+    stroke: var(--component);
+    stroke-width: 1px;
+    transition: all 0.2s ease;
+}
+
+.highlight-today {
+    stroke: var(--component) !important;
+    stroke-width: 2px !important;
+}
+
+.stats-legend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+    background: var(--bg-color);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-color);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
 }
 
 .cal-heatmap-subdomain.highlight {
