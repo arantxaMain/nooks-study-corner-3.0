@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import Heatmap from '../components/Heatmap';
+import BarChart from './BarChart';
 import { api } from '../services/api'; 
+import '../styles/BarChart.css';
 
 const StatsTab = () => {
   const [data, setData] = useState<Record<string, number>>({});
@@ -17,7 +18,7 @@ const StatsTab = () => {
   return (
     <div>
       <h3>Últimos 100 días</h3>
-      <Heatmap data={data} />
+      <BarChart data={data} />
     </div>
   );
 };
